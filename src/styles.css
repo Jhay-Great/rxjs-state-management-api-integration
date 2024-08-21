@@ -8,5 +8,32 @@
 :root {
     --color-white: #fff;
     --color-black: #000;
-    
+    --color-red: ##C73B0F;
+    --color-rose-900: #260F08;
+    --color-rose-500: #87635A;
+    --color-rose-400: #AD8A85;
+    --color-rose-300: #CAAFA7;
+    --color-rose-100: #F5EEEC;
+    --color-rose-50: #FCF8F6;
+    --color-green: #1EA575;
+
+    /* TEXT */
+    --font-size-large: 56px;
+    --font-size-medium: 24px;
+    --font-size-small: 16px;
+    --font-size-smallest: 14px;
+
+    --line-height-1: 120%;
+    --line-height-2: 125%;
+    --line-height-3: 150%;
+
+    /* SPACING */
+    --spacing-largest: 88px;
+    --spacing-larger: 40px;
+    --spacing-large: 32px;
+    --spacing-medium: 24px;
+    --spacing-small: 16px;
+    --spacing-smaller: 12px;
+    --spacing-very-small: 8px;
+    --spacing-smallest: 4px;
 }
