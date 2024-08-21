@@ -37,3 +37,11 @@
     --spacing-very-small: 8px;
     --spacing-smallest: 4px;
 }
+
+body {
+    width: 100%;
+    height: fit-content;
+    padding: 1.5rem;
+    background: var(--color-rose-50);
+    color: var(--color-black);
+}
