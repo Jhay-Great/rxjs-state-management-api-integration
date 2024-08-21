@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+// local module imports
+import { ShoppingItemsComponent } from './components/shopping-items/shopping-items.component';
+import { CartComponent } from './components/cart/cart.component';
+
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ShoppingItemsComponent, CartComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

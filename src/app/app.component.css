@@ -1,5 +1,15 @@
+app-shopping-items {
+    flex: 3 0;
+    height: fit-content;
+    /* display: */
+}
+
+app-cart {
+    flex: 1 0;
+    height: fit-content;
+}
 
 
 router-outlet {
     display: none;
-}
+    }

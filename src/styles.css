@@ -45,3 +45,14 @@ body {
     background: var(--color-rose-50);
     color: var(--color-black);
 }
+
+app-root {
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+
+    width: 90%;
+    height: 100%;
+}
