@@ -13,12 +13,17 @@ export class ShoppingCardComponent implements OnInit {
 
   @Input () productList!: productList | null;
 
+  addToCartIsClicked:boolean = false;
+
   constructor () {
   }
   
   ngOnInit(): void {
-    console.log(this.productList)
     
+  }
+
+  addProductToCart () {
+    this.addToCartIsClicked = true;
   }
 
 }

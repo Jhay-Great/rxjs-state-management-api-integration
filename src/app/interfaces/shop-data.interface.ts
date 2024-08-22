@@ -1,17 +1,3 @@
-export interface productCategory {
-    dessert: string;
-}
-
-export interface productLists {
-    // image: {
-    //     [key:string]: string;
-    // },
-    image: imageData;
-    name: string;
-    category: string;
-    price: number;
-    id: string;
-}[]
 
 export interface imageData {
     thumbnail: string;
@@ -20,12 +6,6 @@ export interface imageData {
     desktop: string;
 }
 
-// export type productData = productList[];
-
-export interface productData {
-    dessert: productLists[];
-  }
-
   export interface Product {
     image: ImageData;
     name: string;
@@ -33,5 +13,18 @@ export interface productData {
     price: number;
     id: string;
   }
-  
   export type productList = Product[];
+
+
+// oder data
+export interface OrderData {
+    item: OrderItem
+}
+
+// product item
+export interface OrderItem {
+    name: string;
+    quantity: number;
+    price: number;
+    total: number;
+}

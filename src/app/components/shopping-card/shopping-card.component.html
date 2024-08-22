@@ -5,14 +5,33 @@
       src="../../../assets/images/image-baklava-mobile.jpg"
       alt="image of {{ product.name }}"
     />
-    <button>
-      <!-- svg icon -->
-      <img
-        src="../../../assets/images/icon-add-to-cart.svg"
-        alt="svg icon for add to cart button"
-      />
-      Add to cart
-    </button>
+    <div class="add-to-cart-container">
+        @if (!addToCartIsClicked) {
+            <button class="addToCart-btn" (click)="addProductToCart()">
+              <!-- svg icon -->
+              <img
+                src="../../../assets/images/icon-add-to-cart.svg"
+                alt="svg icon for add to cart button"
+              />
+              Add to cart
+            </button>
+    
+        }@else {
+            <div class="order-quantity">
+                <!-- decrease -->
+                <button class="decrease">
+                    <img src="../../../assets/images/icon-decrement-quantity.svg" alt="svg icon to decrease order quantity">
+                </button>
+                <!-- quantity -->
+                <p>1</p>
+                <!-- increase -->
+                <button class="increase">
+                    <img src="../../../assets/images/icon-increment-quantity.svg" alt="svg icon to increase order quantity">
+                </button>
+            </div>
+        }
+
+    </div>
   </section>
 
   <section class="bottom-section">

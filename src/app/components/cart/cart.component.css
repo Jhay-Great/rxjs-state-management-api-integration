@@ -20,7 +20,7 @@ ul li {
 .purchase-details {
     display: flex;
     align-items: center;
-    gap: var(--spacing-very-small);
+    gap: var(--spacing-100);
 }
 
 .message {
