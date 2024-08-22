@@ -5,7 +5,9 @@
     object-fit: cover;
 }
 
-.add-to-cart-container {
+/* .add-to-cart-container, */
+.addToCart-btn,
+.order-quantity {
     border-radius: 40px;
     width: 160px;
     padding: var(--spacing-150);
@@ -14,15 +16,33 @@
     justify-content: center;
     align-items: center;
     height: fit-content;
-    border: 1px solid var(--color-red);
+    border: 1px solid var(--color-rose-400);
 }
 .addToCart-btn {
     display: flex;
     gap: var(--spacing-100);
+    background-color: var(--color-white);
 }
 .order-quantity {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--color-rose-400);
+    background-color: var(--color-red);
+}
+.order-quantity p {
+    color: var(--color-white);
+    font-size: var(--font-size-smallest);
+}
+.order-quantity button  {
+    border: 1px solid var(--color-white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+}
+.order-quantity button path {
+    stroke: var(--color-white);
+    fill: var(--color-white);
 }

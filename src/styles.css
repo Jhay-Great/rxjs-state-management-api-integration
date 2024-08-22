@@ -60,4 +60,5 @@ app-root {
 button {
     border: 1px solid transparent;
     cursor: pointer;
+    background-color: transparent;
 }

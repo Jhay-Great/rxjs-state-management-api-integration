@@ -20,7 +20,6 @@ export class ShopDataService {
    }
 
    fetchProductData (): Observable<productList> {
-    // console.log(this.http.get(`${this.api}${this.parameter}`))
     return this.http.get<productList>(`${this.api}${this.parameter}`)
    }
 

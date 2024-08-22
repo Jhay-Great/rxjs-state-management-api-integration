@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { productData, productList } from '../../interfaces/shop-data.interface';
+import { productList } from '../../interfaces/shop-data.interface';
 
 @Component({
   selector: 'app-shopping-card',
