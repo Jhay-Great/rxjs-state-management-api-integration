@@ -1,1 +1,34 @@
-<p>shopping-card works!</p>
+@for (product of productList; track $index) {
+<div class="card-item">
+  <section class="top-section">
+    <img
+      src="../../../assets/images/image-baklava-mobile.jpg"
+      alt="image of {{ product.name }}"
+    />
+    <button>
+      <!-- svg icon -->
+      <img
+        src="../../../assets/images/icon-add-to-cart.svg"
+        alt="svg icon for add to cart button"
+      />
+      Add to cart
+    </button>
+  </section>
+
+  <section class="bottom-section">
+    <!-- category -->
+    <p class="category">
+      {{ product.category }}
+    </p>
+    <!-- name -->
+    <p class="name">
+      {{ product.name }}
+    </p>
+    <!-- price -->
+    <p class="price">
+      ${{ product.price }}
+    </p>
+  </section>
+</div>
+
+}

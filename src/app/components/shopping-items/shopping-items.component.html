@@ -4,16 +4,45 @@
 
 <!-- product card item -->
 <section class="product-card-container">
-    <div class="card-item">
+    <!-- @if (productList$ | async; as productList) {
+        @for (item of productList; track $index) {
+          Your item template here
+          <div>{{ item.name }}</div>
+        }
+      } @else {
+        <p>Loading products...</p>
+      } -->
+    
+    
+    
+    <!-- @for (item of data ; track $index) {
+
+    } -->
+    <!-- @for (item of productList$.dessert; track $index) {
+        <p>
+            {{ item.name }}
+        </p>
+    } -->
+    <!-- <div class="card-item">
         <section class="top-section">
             <img src="../../../assets/images/image-baklava-mobile.jpg" alt="mobile image">
             <button>
-                <!-- svg icon -->
+                <!-- svg icon --
                 <img src="../../../assets/images/icon-add-to-cart.svg" alt="svg icon for add to cart button">
                 Add to cart
             </button>
         </section>
         <div class="bottom-section"></div>
-    </div>
+    </div> -->
+
+    <!-- @if (productList$ | async; as productList) {
+        <app-shopping-card [productList]="productList" />
+      } @else {
+        <p>Loading products...</p>
+    } -->
+    
+    <app-shopping-card 
+        [productList]="productList$ | async"
+    />
 
 </section>
