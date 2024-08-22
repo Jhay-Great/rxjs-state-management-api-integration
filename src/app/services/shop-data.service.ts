@@ -32,6 +32,12 @@ export class ShopDataService {
     return this.orders;
    }
 
+   updateOrder (updatedData:OrderItem) {
+    this.orders = this.orders.map(item => {
+      return item.id === updatedData.id ? updatedData : item
+    })
+   }
+
    generateId () {
     // const id = uuid().v4;
    }

@@ -41,6 +41,7 @@ export class ShoppingCardComponent implements OnInit {
         productId: id,
       }
       this.productService.addNewOrder(orderData);
+      return;
     }
     // console.log(this.productService.getOrderData());
     return;
@@ -55,7 +56,20 @@ export class ShoppingCardComponent implements OnInit {
     };
   }
 
-  increaseProductQuantity () {
+  increaseProductQuantity (productId:string) {
+    const orderData = this.productService.getOrderData();
+    const data = orderData.find(item => item.id === productId);
+    if (data) {
+      let { quantityCount } = data;
+      quantityCount += 1;
+
+      const updatedData = {...data, quantityCount};
+      // console.log(updatedData);
+      this.productService.updateOrder(updatedData);
+      console.log(this.productService.getOrderData());
+
+    }
+    
 
   }
 
