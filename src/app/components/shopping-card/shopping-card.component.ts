@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+
+// local module imports
+import { ShopDataService } from '../../services/shop-data.service';
 import { productList } from '../../interfaces/shop-data.interface';
 
 @Component({
@@ -15,15 +18,49 @@ export class ShoppingCardComponent implements OnInit {
 
   addToCartIsClicked:boolean = false;
 
-  constructor () {
+  constructor (
+    private productService: ShopDataService,
+  ) {
   }
   
   ngOnInit(): void {
     
   }
 
-  addProductToCart () {
+  addProductToCart (id:string) {
     this.addToCartIsClicked = true;
+    const quantityCount = 1;
+    const data = this.getItemData(id);
+    if (data) {
+      const { name, price } = data;
+      const orderData = {
+        id,
+        name,
+        price,
+        quantityCount,
+        productId: id,
+      }
+      this.productService.addNewOrder(orderData);
+    }
+    // console.log(this.productService.getOrderData());
+    return;
+
+  }
+
+  getItemData (id:string) {
+    const data = this.productList?.find(item => item.id === id);
+    return {
+      name: data?.name, 
+      price: data?.price
+    };
+  }
+
+  increaseProductQuantity () {
+
+  }
+
+  decreaseProductQuantity () {
+
   }
 
 }

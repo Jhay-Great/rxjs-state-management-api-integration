@@ -1,4 +1,4 @@
-@for (product of productList; track $index) {
+@for (product of productList; track product.id) {
 <div class="card-item">
   <section class="top-section">
     <img
@@ -7,7 +7,7 @@
     />
     <div class="add-to-cart-container">
         @if (!addToCartIsClicked) {
-            <button class="addToCart-btn" (click)="addProductToCart()">
+            <button class="addToCart-btn" (click)="addProductToCart(product.id)">
               <!-- svg icon -->
               <img
                 src="../../../assets/images/icon-add-to-cart.svg"
