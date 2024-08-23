@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 // import module import
 import {productList, OrderData, OrderItem } from '../interfaces/shop-data.interface';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +17,7 @@ export class ShopDataService {
 
   constructor(
     private http: HttpClient,
-  ) { 
-
-   }
+  ) { }
 
    fetchProductData (): Observable<productList> {
     return this.http.get<productList>(`${this.api}${this.parameter}`)
