@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 // local module imports
@@ -23,10 +23,13 @@ export class ShoppingCardComponent implements OnInit {
 
   constructor (
     private productService: ShopDataService,
+    private changeDetect: ChangeDetectorRef
   ) {
+    console.log(this.productService.items$.length);
   }
   
   ngOnInit(): void {
+    console.log(this.productService.items$.length);
     
   }
 
@@ -48,6 +51,7 @@ export class ShoppingCardComponent implements OnInit {
         productId: id,
       }
       this.productService.addNewOrder(orderData);
+      console.log(this.productService.getOrderData());
       // console.log('called: ', id)
       return true;
     }

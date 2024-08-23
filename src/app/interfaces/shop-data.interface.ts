@@ -7,7 +7,7 @@ export interface imageData {
 }
 
   export interface Product {
-    image: ImageData;
+    image: imageData;
     name: string;
     category: string;
     price: number;

@@ -14,6 +14,13 @@ export class ShopDataService {
   parameter:string = 'dessert';
   // private orders!:OrderData[];
   private orders:OrderItem[] = [];
+  private orderSubject = new BehaviorSubject<OrderItem[]>(this.orders);
+  items$ = this.orderSubject.asObservable;
+
+  // private cartItems: Product[] = [];
+  // private cartItemsSubject = new BehaviorSubject<Product[]>(this.cartItems);
+
+  // cartItems$ = this.cartItemsSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -24,6 +31,7 @@ export class ShopDataService {
    }
 
    addNewOrder (item: OrderItem):void {
+    console.log('called to push item')
     this.orders.push(item);
    }
    getOrderData () {
