@@ -16,7 +16,10 @@ export class ShoppingCardComponent implements OnInit {
 
   @Input () productList!: productList | null;
 
+  cartProductIds: Set<string> = new Set<string>();
+  selectedProductId: string | null = null;
   addToCartIsClicked:boolean = false;
+  clicked:string[] = [];
 
   constructor (
     private productService: ShopDataService,
@@ -27,7 +30,11 @@ export class ShoppingCardComponent implements OnInit {
     
   }
 
+
   addProductToCart (id:string) {
+    this.selectedProductId = id; //
+    this.cartProductIds.add(id);
+
     this.addToCartIsClicked = true;
     const quantityCount = 1;
     const data = this.getItemData(id);
@@ -41,12 +48,19 @@ export class ShoppingCardComponent implements OnInit {
         productId: id,
       }
       this.productService.addNewOrder(orderData);
-      return;
+      console.log('called: ', id)
+      return true;
     }
     // console.log(this.productService.getOrderData());
-    return;
+    return false;
 
   }
+
+    // Method to check if the product is selected
+    isProductSelected(productId: string): boolean {
+      // return this.selectedProductId === productId;
+      return this.cartProductIds.has(productId);
+    }
 
   getItemData (id:string) {
     const data = this.productList?.find(item => item.id === id);
@@ -64,17 +78,34 @@ export class ShoppingCardComponent implements OnInit {
       quantityCount += 1;
 
       const updatedData = {...data, quantityCount};
-      // console.log(updatedData);
       this.productService.updateOrder(updatedData);
       console.log(this.productService.getOrderData());
-
+      return;
     }
+    return;
+    
+
+  }
+  decreaseProductQuantity (productId:string) {
+    const orderData = this.productService.getOrderData();
+    const data = orderData.find(item => item.id === productId);
+    if (data) {
+      let { quantityCount } = data;
+      quantityCount -= 1;
+
+      const updatedData = {...data, quantityCount};
+      this.productService.updateOrder(updatedData);
+      console.log(this.productService.getOrderData());
+      return;
+    }
+    return;
     
 
   }
 
-  decreaseProductQuantity () {
-
+  displayOrderQuantity (quantity: number) {
+    return quantity;
   }
+  
 
 }

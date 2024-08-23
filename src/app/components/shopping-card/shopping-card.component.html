@@ -6,7 +6,9 @@
       alt="image of {{ product.name }}"
     />
     <div class="add-to-cart-container">
-        @if (!addToCartIsClicked) {
+        <!-- @if (!addToCartIsClicked) { -->
+        <!-- @if (addProductToCart(product.id)) { -->
+        @if (!isProductSelected(product.id)) {
             <button class="addToCart-btn" (click)="addProductToCart(product.id)">
               <!-- svg icon -->
               <img
@@ -19,7 +21,7 @@
         }@else {
             <div class="order-quantity">
                 <!-- decrease -->
-                <button class="decrease">
+                <button class="decrease" (click)="decreaseProductQuantity(product.id)">
                   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="2" fill="none" viewBox="0 0 10 2"><path fill="currentColor" d="M0 .375h10v1.25H0V.375Z"/></svg>
                 </button>
                 <!-- quantity -->
