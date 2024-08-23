@@ -7,6 +7,9 @@ app-shopping-items {
 app-cart {
     flex: 1 0;
     height: fit-content;
+    background-color: var(--color-white);
+    border: none;
+    border-radius: var(--spacing-150);
 }
 
 

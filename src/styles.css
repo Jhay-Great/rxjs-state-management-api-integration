@@ -5,6 +5,19 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'RedHatText-Bold';
+    src: url(./assets/fonts/RedHatText-Bold.ttf);
+}
+@font-face {
+    font-family: 'RedHatText-SemiBold';
+    src: url(./assets/fonts/RedHatText-SemiBold.ttf);
+}
+@font-face {
+    font-family: 'RedHatText-Regular';
+    src: url(./assets/fonts/RedHatText-Regular.ttf);
+}
+
 :root {
     --color-white: #fff;
     --color-black: #000;
@@ -18,6 +31,10 @@
     --color-green: #1EA575;
 
     /* TEXT */
+    --font-family-bold: 'RedHatText-Bold';
+    --font-family-semibold: 'RedHatText-SemiBold';
+    --font-family-regular: 'RedHatText-Regular';
+    
     --font-size-large: 56px;
     --font-size-medium: 24px;
     --font-size-small: 16px;

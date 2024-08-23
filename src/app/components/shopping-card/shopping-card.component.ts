@@ -48,7 +48,7 @@ export class ShoppingCardComponent implements OnInit {
         productId: id,
       }
       this.productService.addNewOrder(orderData);
-      console.log('called: ', id)
+      // console.log('called: ', id)
       return true;
     }
     // console.log(this.productService.getOrderData());
