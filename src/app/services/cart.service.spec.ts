@@ -13,4 +13,26 @@ describe('CartService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should remove the item from the cart', () => {
+    const cartData = [
+      {
+        orderId: 12, 
+        name: 'doughnut', 
+        price: 12.30, 
+        productId: '321sa', 
+        quantityCount: 2,
+      },
+      {
+        orderId: 12, 
+        name: 'doughnut', 
+        price: 12.30, 
+        productId: '321sa', 
+        quantityCount: 2,
+      }
+    ];
+    
+    
+  })
+  
 });

@@ -61,7 +61,7 @@ export class ShopDataService {
     })
    }
 
-   generateId () {
-    // const id = uuid().v4;
-   }
+  //  generateId () {
+  //   // const id = uuid().v4;
+  //  }
 }

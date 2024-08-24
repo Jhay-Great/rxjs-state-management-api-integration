@@ -28,5 +28,12 @@ export class CartComponent {
     
    };
 
+   removeItem (id:string | undefined) {
+    if (!id) return;
+    
+    console.log(id);
+    this.cartService.removeItemFromCart(id);
+   }
+
 
 }
