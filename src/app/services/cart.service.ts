@@ -17,9 +17,11 @@ export class CartService {
   ) { }
 
   addToCart (order:Observable<OrderItem>) {
-    // order.subscribe(item => this.orderedItems.push(item));
-    order.subscribe(item => [...this.orderedItems, item]);
+    order.subscribe(item => this.orderedItems.push(item));
+    // this.orderedItems = order.subscribe(item => [...this.orderedItems, item]);
     this.orderSubject.next(this.orderedItems);
+
+    // this.orders$.subscribe(item => console.log(item));
 
 
 

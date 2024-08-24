@@ -24,7 +24,7 @@ export class CartComponent {
     this.length$ = this.data.pipe(
       map(data => data.length),
     )
-    this.data.subscribe(data => console.log(data))
+    // this.data.subscribe(data => console.log(data))
     
    };
 
