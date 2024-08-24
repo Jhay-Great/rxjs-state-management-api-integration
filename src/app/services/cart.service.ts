@@ -10,7 +10,7 @@ export class CartService {
 
   orderedItems:OrderItem[] = [];
   private orderSubject = new BehaviorSubject<OrderItem[]>(this.orderedItems);
-  private orders$ = this.orderSubject.asObservable;
+  private orders$ = this.orderSubject.asObservable();
 
   constructor(
     private store:ShopDataService,
