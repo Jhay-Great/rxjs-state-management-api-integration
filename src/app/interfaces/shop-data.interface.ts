@@ -13,7 +13,7 @@ export interface imageData {
     price: number;
     id: string;
   }
-  export type productList = Product[];
+  export type ProductList = Product[];
 
 
 // oder data
@@ -23,9 +23,9 @@ export interface OrderData {
 
 // product item
 export interface OrderItem {
+    orderId: string;
     name: string | undefined;
-    quantityCount: number;
     price: number | undefined;
-    id: string;
-    productId: string;
+    quantityCount: number;
+    productId: string | undefined;
 }

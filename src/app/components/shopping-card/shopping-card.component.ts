@@ -1,9 +1,10 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 // local module imports
 import { ShopDataService } from '../../services/shop-data.service';
-import { productList } from '../../interfaces/shop-data.interface';
+import { ProductList, Product } from '../../interfaces/shop-data.interface';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-shopping-card',
@@ -14,60 +15,72 @@ import { productList } from '../../interfaces/shop-data.interface';
 })
 export class ShoppingCardComponent implements OnInit {
 
-  @Input () productList!: productList | null;
+  @Input () product!: Product;
 
-  cartProductIds: Set<string> = new Set<string>();
-  selectedProductId: string | null = null;
+  // cartProductIds: Set<string> = new Set<string>();
   addToCartIsClicked:boolean = false;
+  selectedProductId: string | null = null;
   clicked:string[] = [];
 
   constructor (
     private productService: ShopDataService,
+    private cartServices: CartService,
     private changeDetect: ChangeDetectorRef
   ) {
-    console.log(this.productService.items$.length);
+    // console.log(this.productService.items$.length);
   }
   
   ngOnInit(): void {
-    console.log(this.productService.items$.length);
+    // console.log(this.productService.items$.length);
     
   }
 
 
   addProductToCart (id:string) {
-    this.selectedProductId = id; //
-    this.cartProductIds.add(id);
-
     this.addToCartIsClicked = true;
-    const quantityCount = 1;
-    const data = this.getItemData(id);
-    if (data) {
-      const { name, price } = data;
-      const orderData = {
-        id,
-        name,
-        price,
-        quantityCount,
-        productId: id,
-      }
-      this.productService.addNewOrder(orderData);
-      console.log(this.productService.getOrderData());
-      // console.log('called: ', id)
-      return true;
-    }
-    // console.log(this.productService.getOrderData());
-    return false;
+    const data = this.productService.findItem(id).pipe(
+      map(data => ({
+        orderId: '3',
+        name: data?.name,
+        price: data?.price,
+        productId: data?.id, 
+        quantityCount: 1
+      }))
+    )
+    this.cartServices.addToCart(data);
+
+    
+    // this.selectedProductId = id; 
+    // this.cartProductIds.add(id);
+    // const quantityCount = 1;
+    // const data = this.getItemData(id);
+    // if (data) {
+    //   const { name, price } = data;
+    //   const orderData = {
+    //     id,
+    //     name,
+    //     price,
+    //     quantityCount,
+    //     productId: id,
+    //   }
+    //   this.productService.addNewOrder(orderData);
+    //   console.log(this.productService.getOrderData());
+    //   // console.log('called: ', id)
+    //   return true;
+    // }
+    // // console.log(this.productService.getOrderData());
+    // return false;
 
   }
 
     // Method to check if the product is selected
-    isProductSelected(productId: string): boolean {
-      // return this.selectedProductId === productId;
-      return this.cartProductIds.has(productId);
-    }
+    // isProductSelected(productId: string): boolean {
+    //   // return this.selectedProductId === productId;
+    //   return this.cartProductIds.has(productId);
+    // }
 
   getItemData (id:string) {
-    const data = this.productList?.find(item => item.id === id);
+    const data = Object.assign(this.product)?.find((item:Product) => item.id === id);
     return {
       name: data?.name, 
       price: data?.price
@@ -76,7 +89,7 @@ export class ShoppingCardComponent implements OnInit {
 
   increaseProductQuantity (productId:string) {
     const orderData = this.productService.getOrderData();
-    const data = orderData.find(item => item.id === productId);
+    const data = orderData.find(item => item.productId === productId);
     if (data) {
       let { quantityCount } = data;
       quantityCount += 1;
@@ -92,7 +105,7 @@ export class ShoppingCardComponent implements OnInit {
   }
   decreaseProductQuantity (productId:string) {
     const orderData = this.productService.getOrderData();
-    const data = orderData.find(item => item.id === productId);
+    const data = orderData.find(item => item.productId === productId);
     if (data) {
       let { quantityCount } = data;
       quantityCount -= 1;

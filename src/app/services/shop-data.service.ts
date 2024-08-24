@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 
 
 // import module import
-import {productList, OrderData, OrderItem } from '../interfaces/shop-data.interface';
-import { Observable, BehaviorSubject } from 'rxjs';
+import {ProductList, OrderData, OrderItem, Product } from '../interfaces/shop-data.interface';
+import { Observable, BehaviorSubject, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +17,9 @@ export class ShopDataService {
   private orderSubject = new BehaviorSubject<OrderItem[]>(this.orders);
   items$ = this.orderSubject.asObservable;
 
+  private data$!: Observable<ProductList>
+  private something$ = new Observable;
+
   // private cartItems: Product[] = [];
   // private cartItemsSubject = new BehaviorSubject<Product[]>(this.cartItems);
 
@@ -26,9 +29,22 @@ export class ShopDataService {
     private http: HttpClient,
   ) { }
 
-   fetchProductData (): Observable<productList> {
-    return this.http.get<productList>(`${this.api}${this.parameter}`)
+   fetchProductData (): void {
+    this.data$ = this.http.get<ProductList>(`${this.api}${this.parameter}`)
    }
+  //  fetchProductData (): Observable<productList> {
+  //   return this.http.get<productList>(`${this.api}${this.parameter}`)
+  //  }
+
+  getData () {
+    return this.data$
+  }
+
+  findItem (id:string) {
+    return this.data$.pipe(
+      map(data => data.find(data => data.id === id)),
+    )
+  }
 
    addNewOrder (item: OrderItem):void {
     console.log('called to push item')
@@ -40,7 +56,7 @@ export class ShopDataService {
 
    updateOrder (updatedData:OrderItem) {
     this.orders = this.orders.map(item => {
-      return item.id === updatedData.id ? updatedData : item
+      return item.orderId === updatedData.orderId ? updatedData : item
     })
    }
 

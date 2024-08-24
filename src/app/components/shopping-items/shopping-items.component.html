@@ -41,8 +41,11 @@
         <p>Loading products...</p>
     } -->
     
-    <app-shopping-card 
-        [productList]="productList$ | async"
-    />
+    @for (product of productList$ | async; track $index) {
+        <app-shopping-card 
+            [product]="product"
+        />
+        
+    }
 
 </section>
