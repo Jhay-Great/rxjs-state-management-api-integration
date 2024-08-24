@@ -6,7 +6,7 @@ import { ShopDataService } from '../../services/shop-data.service';
 import { map, Observable } from 'rxjs';
 
 // interfaces
-import { productList,  } from '../../interfaces/shop-data.interface';
+import { ProductList,  } from '../../interfaces/shop-data.interface';
 import { ShoppingCardComponent } from '../shopping-card/shopping-card.component';
 import { CartComponent } from "../cart/cart.component";
 
@@ -19,15 +19,17 @@ import { CartComponent } from "../cart/cart.component";
 })
 export class ShoppingItemsComponent {
 
-  productList$!: Observable<productList>;
+  productList$!: Observable<ProductList>;
 
-  data!:productList;
+  data!:ProductList;
 
   constructor (
     private shoppingMartData: ShopDataService,
   ) {
 
-    this.productList$ = this.shoppingMartData.fetchProductData();
+    this.productList$ = this.shoppingMartData.getData();
+    // this.productList$ = this.shoppingMartData.fetchProductData();
+
     
   }
 }

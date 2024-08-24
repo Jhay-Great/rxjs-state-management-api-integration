@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 
 // local module imports
 import { ShopDataService } from '../../services/shop-data.service';
@@ -39,6 +39,7 @@ export class ShoppingCardComponent implements OnInit {
   addProductToCart (id:string) {
     this.addToCartIsClicked = true;
     const data = this.productService.findItem(id).pipe(
+      tap(() => console.log('w')),
       map(data => ({
         orderId: '3',
         name: data?.name,

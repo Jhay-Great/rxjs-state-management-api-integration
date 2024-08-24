@@ -32,11 +32,12 @@ export class ShopDataService {
    fetchProductData (): void {
     this.data$ = this.http.get<ProductList>(`${this.api}${this.parameter}`)
    }
-  //  fetchProductData (): Observable<productList> {
-  //   return this.http.get<productList>(`${this.api}${this.parameter}`)
+  //  fetchProductData (): Observable<ProductList> {
+  //   return this.http.get<ProductList>(`${this.api}${this.parameter}`)
   //  }
 
   getData () {
+    this.fetchProductData()
     return this.data$
   }
 
