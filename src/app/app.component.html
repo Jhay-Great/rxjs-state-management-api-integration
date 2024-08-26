@@ -2,6 +2,8 @@
 
 <app-cart />
 
-<app-confirm-order-modal />
+@if (confirm | async) {
+    <app-confirm-order-modal />
+}
 
 <router-outlet />

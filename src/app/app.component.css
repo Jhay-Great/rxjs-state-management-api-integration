@@ -48,6 +48,12 @@ app-confirm-order-modal {
 
 router-outlet {
     display: none;
+}
+
+@media screen and (min-width: 580px) {
+    app-confirm-order-modal {
+        align-items: center;
     }
+}
 
 

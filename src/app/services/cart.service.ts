@@ -8,6 +8,10 @@ import { BehaviorSubject, Observable, filter, map, of, tap } from 'rxjs';
 })
 export class CartService {
 
+  isConfirmed: boolean = false;
+  private isConfirmedSubject = new BehaviorSubject<boolean>(this.isConfirmed);
+  private isConfirmed$ = this.isConfirmedSubject.asObservable();
+
   orderedItems:OrderItem[] = [];
   private orderSubject = new BehaviorSubject<OrderItem[]>(this.orderedItems);
   private orders$ = this.orderSubject.asObservable();

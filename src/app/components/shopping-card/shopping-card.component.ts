@@ -87,36 +87,7 @@ export class ShoppingCardComponent implements OnInit {
     });
   }
 
-
   
-  // increaseProductQuantity (productId:string) {
-  //   const item = this.cartServices.findItem(productId).pipe(
-  //     map(data => ({...data, data.quantityCount}))
-  //   )
-  //   console.log(item);
-
-  //   // this.cartServices.findItem(productId).pipe(
-  //   //   take(1),
-  //   //   map(data => ({...data, quantityCount: data.quantityCount + 1})),
-  //   //   switchMap(updatedItem => this.cartServices.updateItem(updatedItem))
-  //   // ).subscribe();
-    
-  //   // const orderData = this.productService.getOrderData();
-  //   // const data = orderData.find(item => item.productId === productId);
-  //   // if (data) {
-  //   //   let { quantityCount } = data;
-  //   //   quantityCount += 1;
-
-  //   //   const updatedData = {...data, quantityCount};
-  //   //   this.productService.updateOrder(updatedData);
-  //   //   console.log(this.productService.getOrderData());
-  //   //   return;
-  //   // }
-  //   return;
-    
-
-  // }
-
   decreaseProductQuantity (productId: string) {
     this.cartServices.findItem(productId).pipe(
       take(1),

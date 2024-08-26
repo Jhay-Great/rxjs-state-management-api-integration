@@ -3,7 +3,8 @@
 </h1>
 
 <section class="detail">
-    @if(isCartEmpty) {
+    <!-- @if(isCartEmpty) { -->
+    @if((isCartEmpty | async)) {
         <div class="empty-cart">
             <img src="../../../assets/images/illustration-empty-cart.svg" alt="image of an empty cart, when cart is empty">
     
@@ -76,7 +77,7 @@
             </section>
 
             <!-- confirm order button -->
-            <button class="confirm-order">
+            <button class="confirm-order" (click)="confirmOrder()">
                 Confirm order
             </button>
         </div>

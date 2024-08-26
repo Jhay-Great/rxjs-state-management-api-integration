@@ -3,6 +3,7 @@ import { map, Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 // local module imports
 import { CartService } from '../../services/cart.service';
+import { ConfirmOrderService } from '../../services/confirm-order.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,16 +14,21 @@ import { CartService } from '../../services/cart.service';
 })
 export class CartComponent {
 
-  isCartEmpty:boolean = !false;
+  // isCartEmpty:boolean = !false;
+  isCartEmpty!: Observable<boolean>;
   data
   length$!: Observable<number>;
 
   constructor (
     private cartService: CartService,
+    private confirmService: ConfirmOrderService,
   ) { 
     this.data = this.cartService.getDataFromCart();
     this.length$ = this.data.pipe(
       map(data => data.length),
+    );
+    this.isCartEmpty = this.length$.pipe(
+      map(number => number > 0),
     )
     // this.data.subscribe(data => console.log(data))
     
@@ -35,6 +41,10 @@ export class CartComponent {
     this.cartService.updateCartState(id, false);
     this.cartService.removeItemFromCart(id);
    }
+
+   confirmOrder() {
+    this.confirmService.handleNewOrders();
+  }
 
 
 }
