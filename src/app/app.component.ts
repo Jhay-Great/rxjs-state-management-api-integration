@@ -23,11 +23,11 @@ export class AppComponent {
   confirm!: Observable<boolean>
 
   constructor (
-    private cartService: CartService,
+    // private cartService: CartService,
     private confirmService: ConfirmOrderService,
   ) {
-    this.isConfirmed = this.cartService.isConfirmed;
+    // this.isConfirmed = this.cartService.isConfirmed;
     this.confirm = this.confirmService.isConfirmed$
-    this.confirmService.isConfirmed$.subscribe(value => console.log(value))
+    this.confirmService.isConfirmed$.subscribe(value => console.log('i trigger on init: ', value))
   };
 }

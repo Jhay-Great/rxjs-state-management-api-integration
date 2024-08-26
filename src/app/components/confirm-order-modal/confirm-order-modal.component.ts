@@ -20,6 +20,7 @@ export class ConfirmOrderModalComponent {
 
   startNewOrder() {
     this.confirmService.handleNewOrders();
+    // this.cartService.
   }
 
 

@@ -90,3 +90,13 @@ button {
     cursor: pointer;
     background-color: transparent;
 }
+
+@media screen and (min-width: 992px) {
+    
+    app-root {
+        display: flex;
+        gap: 2rem;
+        width: min(1260px, 90%);
+        margin: auto;
+    }
+}

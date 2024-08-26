@@ -24,11 +24,17 @@ export class CartComponent {
     private confirmService: ConfirmOrderService,
   ) { 
     this.data = this.cartService.getDataFromCart();
+    this.data.pipe(
+      map(item => item.map(b => b))
+    )
+
+    
+    
     this.length$ = this.data.pipe(
       map(data => data.length),
     );
     this.isCartEmpty = this.length$.pipe(
-      map(number => number > 0),
+      map(number => (console.log(number > 0, number), number > 0)),
     )
     // this.data.subscribe(data => console.log(data))
     
@@ -43,7 +49,13 @@ export class CartComponent {
    }
 
    confirmOrder() {
-    this.confirmService.handleNewOrders();
+    this.confirmService.confirmOrder();
+  }
+
+  handleConfirmation (event: KeyboardEvent) {
+    console.log(event);
+    
+
   }
 
 

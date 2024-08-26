@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { filter, map, Observable, switchMap, take, tap } from 'rxjs';
+import { filter, map, mergeMap, Observable, of, switchMap, take, tap } from 'rxjs';
 
 // local module imports
 import { ShopDataService } from '../../services/shop-data.service';
@@ -61,6 +61,8 @@ export class ShoppingCardComponent implements OnInit {
 
 
   }
+
+  
   
   // increaseProductQuantity (productId:string) {
   //   this.cartServices.increaseItem(productId);

@@ -54,6 +54,12 @@ router-outlet {
     app-confirm-order-modal {
         align-items: center;
     }
+    app-cart {
+        margin-top: 0;
+    }
+    app-shopping-items {
+        flex: 2;
+    }
 }
 
 

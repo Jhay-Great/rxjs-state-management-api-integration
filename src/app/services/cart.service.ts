@@ -8,9 +8,9 @@ import { BehaviorSubject, Observable, filter, map, of, tap } from 'rxjs';
 })
 export class CartService {
 
-  isConfirmed: boolean = false;
-  private isConfirmedSubject = new BehaviorSubject<boolean>(this.isConfirmed);
-  private isConfirmed$ = this.isConfirmedSubject.asObservable();
+  // isConfirmed: boolean = false;
+  // private isConfirmedSubject = new BehaviorSubject<boolean>(this.isConfirmed);
+  // private isConfirmed$ = this.isConfirmedSubject.asObservable();
 
   orderedItems:OrderItem[] = [];
   private orderSubject = new BehaviorSubject<OrderItem[]>(this.orderedItems);
@@ -35,42 +35,35 @@ export class CartService {
     order.subscribe(item => this.orderedItems.push(item));
     // this.orderedItems = order.subscribe(item => [...this.orderedItems, item]);
     this.orderSubject.next(this.orderedItems);
+    console.log('logging orderedItems: ', this.orderedItems);
     
   }
-  // removeItemFromCart (productId:string) {
-  //   this.orders$.pipe(
-  //     map(data => data.filter(item => item.orderId !== productId))
-  //   ).subscribe(
-  //     updatedData => this.orderSubject.next(updatedData)
-  //   )
 
-  //   // this.orderSubject.next(updatedData);
-
-    
-  // }
-
-  // removeItemFromCart(productId: string) {
-  //   // Get the current value of the cart
-  //   const currentOrders = this.orderSubject.getValue();
-    
-  //   // Filter out the item to be removed
-  //   const updatedOrders = currentOrders.filter(item => item.productId !== productId);
-  //   this.getDataFromCart().subscribe(data => console.log(data));
-  //   console.log('order items array: ', this.orderedItems);
-    
-  //   // Emit the updated cart
-  //   this.orderSubject.next(updatedOrders);
-  // }
-
+  getDataFromCart () {
+    return this.orders$;
+  }
+  
   removeItemFromCart (productId:string) {
     const data = this.orderedItems.filter(item => item.productId !== productId);
     console.log(data);
     this.orderSubject.next(data);
   }
 
-  getDataFromCart () {
-    return this.orders$;
+  // removes or clears all the orders made within the orderitems array
+  clearOrders() {
+    // Emit an empty array to the BehaviorSubject
+    this.orderSubject.next([]);
   }
+
+  // removes all data from the map array used to toggle add to cart display in the template file of the shopping card
+  removeAllItems() {
+    // Create a new empty Map
+    const emptyMap = new Map<string, boolean>();
+    
+    // Emit the empty Map to the BehaviorSubject
+    this.cartStateSubject.next(emptyMap);
+  }
+
 
   // findItem () should be a composition (abstract it)
   findItem (id:string) {
