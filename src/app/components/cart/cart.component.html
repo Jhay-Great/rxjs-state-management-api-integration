@@ -25,7 +25,7 @@
                             </p>
                             <div class="purchase-details">
                                 <p class="num-of-orders">{{order.quantityCount}}x</p>
-                                <p class="unit-price">${{order.price}}</p>
+                                <p class="unit-price">&#64;{{ order.price | currency }}</p>
                                 <p class="total-unit-price">{{(order.price ?? 0) * order.quantityCount}}</p>
                             </div>
                         </li>
@@ -60,6 +60,7 @@
                     Order Total
                 </p>
                 <p>
+                    <!-- {{ price | currency }} -->
                     $44.59
                 </p>
             </section>

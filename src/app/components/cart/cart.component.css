@@ -68,6 +68,7 @@ li > p {
 }
 .unit-price {
     font-family: var(--font-family-regular);
+    color: var(--color-rose-500);
 }
 .total-unit-price {
     color: var(--color-rose-500);

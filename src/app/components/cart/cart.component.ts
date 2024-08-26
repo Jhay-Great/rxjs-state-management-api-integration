@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 // local module imports
 import { CartService } from '../../services/cart.service';
 import { ConfirmOrderService } from '../../services/confirm-order.service';
@@ -8,7 +8,7 @@ import { ConfirmOrderService } from '../../services/confirm-order.service';
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [ AsyncPipe],
+  imports: [ AsyncPipe, CommonModule, ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })

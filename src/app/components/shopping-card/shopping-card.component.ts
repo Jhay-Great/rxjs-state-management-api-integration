@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { filter, map, mergeMap, Observable, of, switchMap, take, tap } from 'rxjs';
+import { CurrencyPipe } from '@angular/common';
 
 // local module imports
 import { ShopDataService } from '../../services/shop-data.service';
@@ -9,7 +10,7 @@ import { CartService } from '../../services/cart.service';
 @Component({
   selector: 'app-shopping-card',
   standalone: true,
-  imports: [],
+  imports: [CurrencyPipe],
   templateUrl: './shopping-card.component.html',
   styleUrl: './shopping-card.component.css'
 })
