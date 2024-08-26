@@ -12,9 +12,20 @@ export class CartService {
   private orderSubject = new BehaviorSubject<OrderItem[]>(this.orderedItems);
   private orders$ = this.orderSubject.asObservable();
 
+  // special as well
+  private cartStateSubject = new BehaviorSubject<Map<string, boolean>>(new Map());
+  cartState$ = this.cartStateSubject.asObservable();
+
   constructor(
     private store:ShopDataService,
   ) { }
+
+  // special because i don't understand and i get copied it, hoping it'll work coz i was tired of thinking
+  updateCartState(productId: string, inCart: boolean) {
+    const currentState = this.cartStateSubject.getValue();
+    currentState.set(productId, inCart);
+    this.cartStateSubject.next(currentState);
+  }
 
   addToCart (order:Observable<OrderItem>) {
     order.subscribe(item => this.orderedItems.push(item));
@@ -34,15 +45,23 @@ export class CartService {
     
   // }
 
-  removeItemFromCart(productId: string) {
-    // Get the current value of the cart
-    const currentOrders = this.orderSubject.getValue();
+  // removeItemFromCart(productId: string) {
+  //   // Get the current value of the cart
+  //   const currentOrders = this.orderSubject.getValue();
     
-    // Filter out the item to be removed
-    const updatedOrders = currentOrders.filter(item => item.productId !== productId);
+  //   // Filter out the item to be removed
+  //   const updatedOrders = currentOrders.filter(item => item.productId !== productId);
+  //   this.getDataFromCart().subscribe(data => console.log(data));
+  //   console.log('order items array: ', this.orderedItems);
     
-    // Emit the updated cart
-    this.orderSubject.next(updatedOrders);
+  //   // Emit the updated cart
+  //   this.orderSubject.next(updatedOrders);
+  // }
+
+  removeItemFromCart (productId:string) {
+    const data = this.orderedItems.filter(item => item.productId !== productId);
+    console.log(data);
+    this.orderSubject.next(data);
   }
 
   getDataFromCart () {

@@ -13,7 +13,7 @@ import { CartService } from '../../services/cart.service';
 })
 export class CartComponent {
 
-  isCartEmpty:boolean = !true;
+  isCartEmpty:boolean = !false;
   data
   length$!: Observable<number>;
 
@@ -32,6 +32,7 @@ export class CartComponent {
     if (!id) return;
     
     console.log(id);
+    this.cartService.updateCartState(id, false);
     this.cartService.removeItemFromCart(id);
    }
 

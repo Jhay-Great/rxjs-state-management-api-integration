@@ -23,22 +23,29 @@ export class ShoppingCardComponent implements OnInit {
   clicked:string[] = [];
   orderQuantity!:number;
 
+  // special as well
+  cartState: Map<string, boolean> = new Map();
+
   constructor (
     private productService: ShopDataService,
     private cartServices: CartService,
-    private changeDetect: ChangeDetectorRef
   ) {
     // console.log(this.productService.items$.length);
   }
   
   ngOnInit(): void {
     // console.log(this.productService.items$.length);
+    // also special
+    this.cartServices.cartState$.subscribe((state:any) => {
+      this.cartState = state;
+    });
     
   }
 
 
   addProductToCart (id:string) {
-    this.addToCartIsClicked = true;
+    this.cartServices.updateCartState(id, true);
+    // this.addToCartIsClicked = true;
     const FIRST_ITEM_ADDED = 1;
     this.orderQuantity = FIRST_ITEM_ADDED;
     const data = this.productService.findItem(id).pipe(

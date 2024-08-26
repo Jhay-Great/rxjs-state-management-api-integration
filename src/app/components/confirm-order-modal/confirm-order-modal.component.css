@@ -1,0 +1,124 @@
+.modal-container {
+    width: min(900px, 100%);
+    height: fit-content;
+    padding: var(--spacing-500) var(--spacing-300) var(--spacing-300);
+    background-color: var(--color-white);
+    border: none;
+    border-radius: var(--spacing-150) var(--spacing-150) 0 0;
+}
+
+h1 {
+    font-family: var(--font-family-bold);
+    font-size: var(--font-size-large);
+    line-height: var(--line-height-1);
+    color: var(--color-rose-900);
+    margin-bottom: var(--spacing-100);
+
+}
+.order-description p {
+    color: var(--color-rose-500);
+    font-family: var(--font-family-regular);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-3);
+}
+
+ul {
+    margin-block: var(--spacing-400);
+    background-color: var(--color-rose-50);
+    padding: var(--spacing-300);
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-300);
+    border: none;
+    border-radius: var(--spacing-100);
+}
+.list-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-300);
+
+}
+
+.list-container > div {
+    display: flex;
+    gap: var(--spacing-200);
+    align-items: center;
+    justify-content: space-between;
+}
+ul img {
+    width: 40px;
+    border-radius: var(--spacing-50);
+    border: none;
+
+}
+li {
+    list-style: none;
+    flex: 2;
+}
+li > p:first-child,
+.quantity,
+.unit-price {
+    font-family: var(--font-family-bold);
+    font-size: var(--font-size-smallest);
+    line-height: var(--line-height-3);
+
+}
+li > p:first-child {
+    color: var(--color-rose-900);
+}
+li > div {
+    display: flex;
+    gap: var(--spacing-100);
+}
+hr {
+    height: 1px;
+    background-color: var(--color-rose-100);
+}
+.quantity {
+    color: var(--color-red);
+    font-size: var(--font-size-smallest);
+    font-family: var(--font-family-bold);
+    line-height: var(--line-height-3);
+}
+.unit-price {
+    color: var(--color-rose-500);
+    font-family: var(--font-family-regular);
+}
+.quantity-price,
+.total > p:first-child {
+    color: var(--color-rose-900);
+}
+.quantity-price {
+    font-family: var(--font-family-semibold);
+    font-size: var(--font-size-small);
+}
+.total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.total > p:first-child {
+    font-family: var(--font-family-regular);
+    font-size: var(--font-size-smallest);
+    line-height: var(--line-height-3);
+}
+.total-amount {
+    font-size: var(--font-size-medium);
+    font-family: var(--font-family-bold);
+    color: var(--color-rose-900);
+    line-height: var(--line-height-2);
+}
+.new-order {
+    width: 100%;
+    height: fit-content;
+    padding: var(--spacing-200);
+    border-radius: 50px;
+    border: 1px solid transparent;
+    background-color: var(--color-red);
+    font-size: var(--font-size-small);
+    color: var(--color-white);
+    font-family: var(--font-family-semibold);
+}
+
+

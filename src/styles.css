@@ -45,14 +45,14 @@
     --line-height-3: 150%;
 
     /* SPACING */
-    --spacing-largest: 88px;
-    --spacing-larger: 40px;
-    --spacing-large: 32px;
-    --spacing-medium: 24px;
-    --spacing-small: 16px;
+    --spacing-1100: 88px;
+    --spacing-500: 40px;
+    --spacing-400: 32px;
+    --spacing-300: 24px;
+    --spacing-200: 16px;
     --spacing-150: 12px;
     --spacing-100: 8px;
-    --spacing-smallest: 4px;
+    --spacing-50: 4px;
 }
 
 body {
@@ -63,16 +63,27 @@ body {
     color: var(--color-black);
 }
 
-app-root {
-    /* display: flex; */
+/* app-root {
+    display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     gap: 2rem;
     flex-wrap: wrap;
 
-    width: 90%;
+    width: min(1260px, 90%);
     height: 100%;
-}
+    margin: 0 auto;
+} */
+/* app-root {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin: 0 auto;
+
+    width: min(1260px, 90%);
+    height: 100%;
+} */
 
 button {
     border: 1px solid transparent;
