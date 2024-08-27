@@ -14,6 +14,9 @@ export interface imageData {
     id: string;
   }
   export type ProductList = Product[];
+  export interface Dessert {
+    dessert: Product[];
+  }
 
 
 // oder data

@@ -25,12 +25,15 @@ export class ShopDataService {
 
   // cartItems$ = this.cartItemsSubject.asObservable();
 
+  private jsonDataUrl = '../../assets/data.json'
+
   constructor(
     private http: HttpClient,
   ) { }
 
    fetchProductData (): void {
-    this.data$ = this.http.get<ProductList>(`${this.api}${this.parameter}`)
+    // this.data$ = this.http.get<ProductList>(`${this.api}${this.parameter}`) // for development
+    this.data$ = this.http.get<ProductList>(`${this.jsonDataUrl}`)
    }
   //  fetchProductData (): Observable<ProductList> {
   //   return this.http.get<ProductList>(`${this.api}${this.parameter}`)
@@ -47,19 +50,19 @@ export class ShopDataService {
     )
   }
 
-   addNewOrder (item: OrderItem):void {
-    console.log('called to push item')
-    this.orders.push(item);
-   }
-   getOrderData () {
-    return this.orders;
-   }
+  //  addNewOrder (item: OrderItem):void {
+  //   console.log('called to push item')
+  //   this.orders.push(item);
+  //  }
+  //  getOrderData () {
+  //   return this.orders;
+  //  }
 
-   updateOrder (updatedData:OrderItem) {
-    this.orders = this.orders.map(item => {
-      return item.orderId === updatedData.orderId ? updatedData : item
-    })
-   }
+  //  updateOrder (updatedData:OrderItem) {
+  //   this.orders = this.orders.map(item => {
+  //     return item.orderId === updatedData.orderId ? updatedData : item
+  //   })
+  //  }
 
   //  generateId () {
   //   // const id = uuid().v4;
