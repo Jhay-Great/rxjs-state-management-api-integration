@@ -70,6 +70,7 @@ export class ShoppingCardComponent implements OnInit {
   //   this.cartService.increaseItem(productId);
 
   // }
+  
 
 
   increaseProductQuantity(productId: string) {

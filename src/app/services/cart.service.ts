@@ -16,13 +16,22 @@ export class CartService {
   private orderSubject = new BehaviorSubject<OrderItem[]>(this.orderedItems);
   private orders$ = this.orderSubject.asObservable();
 
+  // creating a behaviorSubject to calculate the total price
+  totalPriceSubject = new BehaviorSubject<number>(0);
+  private totalPrice$ = this.totalPriceSubject.asObservable();
+
   // special as well
   private cartStateSubject = new BehaviorSubject<Map<string, boolean>>(new Map());
   cartState$ = this.cartStateSubject.asObservable();
 
   constructor(
     private store:ShopDataService,
-  ) { }
+  ) { 
+        // Recalculate total price whenever orderedItems changes
+        this.orders$.pipe(
+          map(items => this.calculateTotalPrice(items))
+        ).subscribe(total => this.totalPriceSubject.next(total));
+   }
 
   // special because i don't understand and i get copied it, hoping it'll work coz i was tired of thinking
   updateCartState(productId: string, inCart: boolean) {
@@ -41,12 +50,28 @@ export class CartService {
 
   addToCart(order: Observable<OrderItem>) {
     order.subscribe(item => {
-      // Create a new array with the added item
-      this.orderedItems = [...this.orderedItems, item];
-      this.orderSubject.next(this.orderedItems); // Emit the updated array
-      console.log('logging orderedItems: ', this.orderedItems);
+      // Check if the item already exists in the cart
+      const existingItemIndex = this.orderedItems.findIndex(i => i.productId === item.productId);
+      if (existingItemIndex >= 0) {
+        // Update quantity of existing item
+        this.orderedItems[existingItemIndex].quantityCount += item.quantityCount;
+      } else {
+        // Add new item to the cart
+        this.orderedItems = [...this.orderedItems, item];
+      }
+      this.orderSubject.next(this.orderedItems);
     });
   }
+
+  // addToCart(order: Observable<OrderItem>) {
+  //   order.subscribe(item => {
+  //     // Create a new array with the added item
+  //     this.orderedItems = [...this.orderedItems, item];
+  //     this.orderSubject.next(this.orderedItems); // Emit the updated array
+  //     console.log('logging orderedItems: ', this.orderedItems);
+  //   });
+  //   this.totalPrice$ = this.calculateTotalPrice();
+  // }
 
   getDataFromCart () {
     return this.orders$;
@@ -95,21 +120,37 @@ export class CartService {
     }
   }
 
+  
+
   // getTotalPrice(): Observable<number> {
   //   return this.orders$.pipe(
   //     map(items => items.reduce((total, item) => total + (item.price * item.quantityCount), 0))
   //   );
   // }
 
-  getTotalPrice(): Observable<number> {
-    return this.orders$.pipe(
-      map(items => items.reduce((total, item) => {
-        // Use a default value of 0 if price is undefined
-        const price = item.price || 0;
-        return total + (price * item.quantityCount);
-      }, 0))
-    );
+  private calculateTotalPrice(items: OrderItem[]): number {
+    return items.reduce((total, item) => {
+      const price = item.price || 0;
+      return total + (price * item.quantityCount);
+    }, 0);
   }
+  
+  // calculateTotalPrice () {
+  //   return this.orders$.pipe(
+  //     map(items => items.reduce((total, item) => {
+  //       // Use a default value of 0 if price is undefined
+  //       const price = item.price || 0;
+  //       return total + (price * item.quantityCount);
+  //     }, 0))
+  //   );
+  // }
+
+  getTotalPrice (): Observable<number> {
+    // console.log('getting total called...')
+    this.totalPrice$.subscribe(val => console.log(val));
+    return this.totalPrice$
+  }
+
 
 
 

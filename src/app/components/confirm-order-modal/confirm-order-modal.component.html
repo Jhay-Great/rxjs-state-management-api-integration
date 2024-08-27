@@ -8,33 +8,37 @@
         <p>We hope you enjoy your food!</p>
     </div>
     <ul class="confirmed-orders-list">
-        <div class="list-container">
-            <div>
-                <!-- img -->
-                <img src="../../../assets/images/image-baklava-desktop.jpg" alt="image of ordered product">
-                <!-- order details -->
-                <li>
-                    <p>
-                        Classic Tiramisu
+        @for (item of data | async ; track $index) {
+            <div class="list-container">
+                <div>
+                    <!-- img -->
+                    <img src="../../../assets/images/image-baklava-desktop.jpg" alt="image of ordered product">
+                    <!-- order details -->
+                    <li>
+                        <p>
+                            {{ item.name}}
+                        </p>
+                        <div>
+                            <p class="quantity">x{{item.quantityCount}}</p>
+                            <p class="unit-price"> &#64; {{item.price | currency}}</p>
+                        </div>
+                    </li>
+                    <!-- price -->
+                    <p class="quantity-price">
+                        {{(item.price ?? 0) * item.quantityCount | currency }}
                     </p>
-                    <div>
-                        <p class="quantity">x1</p>
-                        <p class="unit-price"> $5.50</p>
-                    </div>
-                </li>
-                <!-- price -->
-                <p class="quantity-price">
-                    $3.52
-                </p>
+                </div>
+                <hr>
+    
             </div>
-            <hr>
 
-        </div>
+        }
+        
 
         <div class="total">
             <p>Order Total</p>
             <p class="total-amount">
-                $55.00
+                {{ (totalPrice$ | async) | currency }}
             </p>
         </div>
     </ul>
