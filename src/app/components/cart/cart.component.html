@@ -26,7 +26,7 @@
                             <div class="purchase-details">
                                 <p class="num-of-orders">{{order.quantityCount}}x</p>
                                 <p class="unit-price">&#64;{{ order.price | currency }}</p>
-                                <p class="total-unit-price">{{(order.price ?? 0) * order.quantityCount}}</p>
+                                <p class="total-unit-price">{{(order.price ?? 0) * order.quantityCount | currency }}</p>
                             </div>
                         </li>
                         <button class="close-btn" (click)="removeItem(order.productId)">
