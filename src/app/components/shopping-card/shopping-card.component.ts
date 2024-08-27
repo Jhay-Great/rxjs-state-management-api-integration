@@ -39,6 +39,7 @@ export class ShoppingCardComponent implements OnInit {
     // also special
     this.cartServices.cartState$.subscribe((state:any) => {
       this.cartState = state;
+      console.log('Cart state: ', state);
     });
     
   }

@@ -31,12 +31,21 @@ export class CartService {
     this.cartStateSubject.next(currentState);
   }
 
-  addToCart (order:Observable<OrderItem>) {
-    order.subscribe(item => this.orderedItems.push(item));
-    // this.orderedItems = order.subscribe(item => [...this.orderedItems, item]);
-    this.orderSubject.next(this.orderedItems);
-    console.log('logging orderedItems: ', this.orderedItems);
+  // addToCart (order:Observable<OrderItem>) {
+  //   order.subscribe(item => this.orderedItems.push(item));
+  //   // this.orderedItems = order.subscribe(item => [...this.orderedItems, item]);
+  //   this.orderSubject.next(this.orderedItems);
+  //   console.log('logging orderedItems: ', this.orderedItems);
     
+  // }
+
+  addToCart(order: Observable<OrderItem>) {
+    order.subscribe(item => {
+      // Create a new array with the added item
+      this.orderedItems = [...this.orderedItems, item];
+      this.orderSubject.next(this.orderedItems); // Emit the updated array
+      console.log('logging orderedItems: ', this.orderedItems);
+    });
   }
 
   getDataFromCart () {
