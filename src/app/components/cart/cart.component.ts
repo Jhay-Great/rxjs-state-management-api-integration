@@ -18,6 +18,7 @@ export class CartComponent {
   isCartEmpty!: Observable<boolean>;
   data
   length$!: Observable<number>;
+  totalPrice$ = this.cartService.getTotalPrice();
 
   constructor (
     private cartService: CartService,
@@ -37,13 +38,13 @@ export class CartComponent {
       map(number => (console.log(number > 0, number), number > 0)),
     )
     // this.data.subscribe(data => console.log(data))
+    // this.totalPrice$ = this.cartService.getTotalPrice();
     
    };
 
    removeItem (id:string | undefined) {
     if (!id) return;
     
-    console.log(id);
     this.cartService.updateCartState(id, false);
     this.cartService.removeItemFromCart(id);
    }

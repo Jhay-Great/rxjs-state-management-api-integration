@@ -29,7 +29,7 @@ export class ShoppingCardComponent implements OnInit {
 
   constructor (
     private productService: ShopDataService,
-    private cartServices: CartService,
+    private cartService: CartService,
   ) {
     // console.log(this.productService.items$.length);
   }
@@ -37,16 +37,16 @@ export class ShoppingCardComponent implements OnInit {
   ngOnInit(): void {
     // console.log(this.productService.items$.length);
     // also special
-    this.cartServices.cartState$.subscribe((state:any) => {
+    this.cartService.cartState$.subscribe((state:any) => {
       this.cartState = state;
-      console.log('Cart state: ', state);
+      // console.log('Cart state: ', state);
     });
     
   }
 
 
   addProductToCart (id:string) {
-    this.cartServices.updateCartState(id, true);
+    this.cartService.updateCartState(id, true);
     // this.addToCartIsClicked = true;
     const FIRST_ITEM_ADDED = 1;
     this.orderQuantity = FIRST_ITEM_ADDED;
@@ -59,7 +59,7 @@ export class ShoppingCardComponent implements OnInit {
         quantityCount: FIRST_ITEM_ADDED
       }))
     )
-    this.cartServices.addToCart(data);
+    this.cartService.addToCart(data);
 
 
   }
@@ -67,17 +67,25 @@ export class ShoppingCardComponent implements OnInit {
   
   
   // increaseProductQuantity (productId:string) {
-  //   this.cartServices.increaseItem(productId);
+  //   this.cartService.increaseItem(productId);
 
   // }
 
 
   increaseProductQuantity(productId: string) {
-    this.cartServices.findItem(productId).pipe(
+    // const data$ = this.cartService.getTotalPrice();
+    // data$.subscribe(val => console.log(val));
+    // data$.pipe(
+    //   tap(console.log),
+    // )
+
+    // this.totalPrice$ = this.cartService.getTotalPrice();
+
+    this.cartService.findItem(productId).pipe(
       take(1),
       filter((data): data is OrderItem => !!data), // This ensures data is not null or undefined
       map(data => ({...data, quantityCount: (data.quantityCount || 0) + 1})),
-      switchMap(updatedItem => this.cartServices.updateItem(updatedItem))
+      switchMap(updatedItem => this.cartService.updateItem(updatedItem))
     ).subscribe({
       next: (updatedItem) => {
         // You can add any additional logic here, like updating a local state
@@ -93,14 +101,14 @@ export class ShoppingCardComponent implements OnInit {
 
   
   decreaseProductQuantity (productId: string) {
-    this.cartServices.findItem(productId).pipe(
+    this.cartService.findItem(productId).pipe(
       take(1),
       filter((item): item is OrderItem => !!item),
       map(item => ({ 
         ...item, 
         quantityCount: Math.max((item.quantityCount || 0) - 1, 0) 
       })),
-      switchMap(updatedItem => this.cartServices.updateItem(updatedItem))
+      switchMap(updatedItem => this.cartService.updateItem(updatedItem))
     ).subscribe({
       next: (updatedItem) => {
         // Optionally, you can emit this updated item or update some local state

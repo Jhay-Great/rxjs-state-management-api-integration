@@ -95,11 +95,21 @@ export class CartService {
     }
   }
 
-  // increaseItem (productId:string) {
-  //   const item = this.findItem(productId);
-  //   console.log(item);
-  //   item.subscribe(data => console.log(data?.name))
+  // getTotalPrice(): Observable<number> {
+  //   return this.orders$.pipe(
+  //     map(items => items.reduce((total, item) => total + (item.price * item.quantityCount), 0))
+  //   );
   // }
+
+  getTotalPrice(): Observable<number> {
+    return this.orders$.pipe(
+      map(items => items.reduce((total, item) => {
+        // Use a default value of 0 if price is undefined
+        const price = item.price || 0;
+        return total + (price * item.quantityCount);
+      }, 0))
+    );
+  }
 
 
 
