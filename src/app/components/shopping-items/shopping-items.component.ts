@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 
 // local module imports
-import { ShopDataService } from '../../services/shop-data.service';
-// import { ShopDataService } from '../../services/shop-data.service';
-import { map, Observable } from 'rxjs';
+import { ShopDataService } from '../../services/shop-data/shop-data.service';
+import { Observable } from 'rxjs';
 
 // interfaces
 import { ProductList,  } from '../../interfaces/shop-data.interface';
@@ -21,7 +20,6 @@ import { CartComponent } from '../cart/cart.component';
 export class ShoppingItemsComponent {
 
   productList$!: Observable<ProductList>;
-
   data!:ProductList;
 
   constructor (
@@ -29,7 +27,6 @@ export class ShoppingItemsComponent {
   ) {
 
     this.productList$ = this.shoppingMartData.getData();
-    // this.productList$ = this.shoppingMartData.fetchProductData();
 
     
   }

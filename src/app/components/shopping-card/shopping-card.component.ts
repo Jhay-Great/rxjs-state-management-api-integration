@@ -3,9 +3,9 @@ import { filter, map, mergeMap, Observable, of, switchMap, take, tap } from 'rxj
 import { CurrencyPipe } from '@angular/common';
 
 // local module imports
-import { ShopDataService } from '../../services/shop-data.service';
+import { ShopDataService } from '../../services/shop-data/shop-data.service';
 import { ProductList, Product, OrderItem } from '../../interfaces/shop-data.interface';
-import { CartService } from '../../services/cart.service';
+import { CartService } from '../../services/cart/cart.service';
 
 
 @Component({
@@ -36,11 +36,8 @@ export class ShoppingCardComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    // console.log(this.productService.items$.length);
-    // also special
     this.cartService.cartState$.subscribe((state:any) => {
       this.cartState = state;
-      // console.log('Cart state: ', state);
     });
     
   }
@@ -64,24 +61,11 @@ export class ShoppingCardComponent implements OnInit {
 
 
   }
-
   
-  
-  // increaseProductQuantity (productId:string) {
-  //   this.cartService.increaseItem(productId);
-
-  // }
   
 
 
   increaseProductQuantity(productId: string) {
-    // const data$ = this.cartService.getTotalPrice();
-    // data$.subscribe(val => console.log(val));
-    // data$.pipe(
-    //   tap(console.log),
-    // )
-
-    // this.totalPrice$ = this.cartService.getTotalPrice();
 
     this.cartService.findItem(productId).pipe(
       take(1),
@@ -115,30 +99,12 @@ export class ShoppingCardComponent implements OnInit {
       next: (updatedItem) => {
         // Optionally, you can emit this updated item or update some local state
         this.orderQuantity = updatedItem.quantityCount;
-        // console.log('Item quantity decreased:', updatedItem);
       },
       error: (error) => {
         console.error('Error decreasing item quantity:', error);
       }
     });
   }
-
-  // decreaseProductQuantity (productId:string) {
-  //   const orderData = this.productService.getOrderData();
-  //   const data = orderData.find(item => item.productId === productId);
-  //   if (data) {
-  //     let { quantityCount } = data;
-  //     quantityCount -= 1;
-
-  //     const updatedData = {...data, quantityCount};
-  //     this.productService.updateOrder(updatedData);
-  //     console.log(this.productService.getOrderData());
-  //     return;
-  //   }
-  //   return;
-    
-
-  // }
 
   displayOrderQuantity (quantity: number) {
     return quantity;

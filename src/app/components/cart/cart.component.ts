@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
 // local module imports
-import { CartService } from '../../services/cart.service';
-import { ConfirmOrderService } from '../../services/confirm-order.service';
+import { CartService } from '../../services/cart/cart.service';
+import { ConfirmOrderService } from '../../services/confirm-order/confirm-order.service';
 
 @Component({
   selector: 'app-cart',

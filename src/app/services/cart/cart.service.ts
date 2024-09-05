@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { OrderItem, Product } from '../../interfaces/shop-data.interface';
-import { ShopDataService } from '../shop-data.service';
+import { ShopDataService } from '../shop-data/shop-data.service';
 import { BehaviorSubject, Observable, filter, map, of, tap } from 'rxjs';
 
 @Injectable({
