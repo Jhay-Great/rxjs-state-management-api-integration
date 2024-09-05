@@ -42,73 +42,82 @@ export class ShoppingCardComponent implements OnInit {
     
   }
 
-
-  addProductToCart (id:string) {
-    this.cartService.updateCartState(id, true);
-    // this.addToCartIsClicked = true;
-    const FIRST_ITEM_ADDED = 1;
-    this.orderQuantity = FIRST_ITEM_ADDED;
-    const data = this.productService.findItem(id).pipe(
-      map(data => ({
-        orderId: '3',
-        name: data?.name,
-        price: data?.price,
-        productId: data?.id, 
-        quantityCount: FIRST_ITEM_ADDED
-      }))
-    )
-    this.cartService.addToCart(data);
-
+  onAddToCart (id:string) {
 
   }
+
+  onReduceProductQuantity (id:string) {
+
+  }
+
+  onIncreaseProductQuantity (id:string) {
+    
+  }
+
+
+  // addProductToCart (id:string) {
+  //   this.cartService.updateCartState(id, true);
+  //   // this.addToCartIsClicked = true;
+  //   const FIRST_ITEM_ADDED = 1;
+  //   this.orderQuantity = FIRST_ITEM_ADDED;
+  //   const data = this.productService.findItem(id).pipe(
+  //     map(data => ({
+  //       orderId: '3',
+  //       name: data?.name,
+  //       price: data?.price,
+  //       productId: data?.id, 
+  //       quantityCount: FIRST_ITEM_ADDED
+  //     }))
+  //   )
+  //   this.cartService.addToCart(data);
+
+
+  // }
   
-  
+  // increaseProductQuantity(productId: string) {
 
-
-  increaseProductQuantity(productId: string) {
-
-    this.cartService.findItem(productId).pipe(
-      take(1),
-      filter((data): data is OrderItem => !!data), // This ensures data is not null or undefined
-      map(data => ({...data, quantityCount: (data.quantityCount || 0) + 1})),
-      switchMap(updatedItem => this.cartService.updateItem(updatedItem))
-    ).subscribe({
-      next: (updatedItem) => {
-        // You can add any additional logic here, like updating a local state
-        this.orderQuantity = updatedItem.quantityCount;
-        // console.log('Item updated successfully', updatedItem);
-      },
-      error: (error) => {
-        console.error('Error updating item', error);
-        // Handle the error appropriately
-      }
-    });
-  }
+  //   this.cartService.findItem(productId).pipe(
+  //     take(1),
+  //     filter((data): data is OrderItem => !!data), // This ensures data is not null or undefined
+  //     map(data => ({...data, quantityCount: (data.quantityCount || 0) + 1})),
+  //     switchMap(updatedItem => this.cartService.updateItem(updatedItem))
+  //   ).subscribe({
+  //     next: (updatedItem) => {
+  //       // You can add any additional logic here, like updating a local state
+  //       this.orderQuantity = updatedItem.quantityCount;
+  //       // console.log('Item updated successfully', updatedItem);
+  //     },
+  //     error: (error) => {
+  //       console.error('Error updating item', error);
+  //       // Handle the error appropriately
+  //     }
+  //   });
+  // }
 
   
-  decreaseProductQuantity (productId: string) {
-    this.cartService.findItem(productId).pipe(
-      take(1),
-      filter((item): item is OrderItem => !!item),
-      map(item => ({ 
-        ...item, 
-        quantityCount: Math.max((item.quantityCount || 0) - 1, 0) 
-      })),
-      switchMap(updatedItem => this.cartService.updateItem(updatedItem))
-    ).subscribe({
-      next: (updatedItem) => {
-        // Optionally, you can emit this updated item or update some local state
-        this.orderQuantity = updatedItem.quantityCount;
-      },
-      error: (error) => {
-        console.error('Error decreasing item quantity:', error);
-      }
-    });
-  }
+  // decreaseProductQuantity (productId: string) {
+  //   this.cartService.findItem(productId).pipe(
+  //     take(1),
+  //     filter((item): item is OrderItem => !!item),
+  //     map(item => ({ 
+  //       ...item, 
+  //       quantityCount: Math.max((item.quantityCount || 0) - 1, 0) 
+  //     })),
+  //     switchMap(updatedItem => this.cartService.updateItem(updatedItem))
+  //   ).subscribe({
+  //     next: (updatedItem) => {
+  //       // Optionally, you can emit this updated item or update some local state
+  //       this.orderQuantity = updatedItem.quantityCount;
+  //     },
+  //     error: (error) => {
+  //       console.error('Error decreasing item quantity:', error);
+  //     }
+  //   });
+  // }
 
-  displayOrderQuantity (quantity: number) {
-    return quantity;
-  }
+  // displayOrderQuantity (quantity: number) {
+  //   return quantity;
+  // }
   
 
 }

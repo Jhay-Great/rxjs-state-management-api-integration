@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../../services/cart.service';
-import { ConfirmOrderService } from '../../services/confirm-order.service';
+import { CartService } from '../../services/cart/cart.service';
+import { ConfirmOrderService } from '../../services/confirm-order/confirm-order.service';
 import { AsyncPipe, CurrencyPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 

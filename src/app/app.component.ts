@@ -5,8 +5,8 @@ import { RouterOutlet } from '@angular/router';
 import { ShoppingItemsComponent } from './components/shopping-items/shopping-items.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ConfirmOrderModalComponent } from './components/confirm-order-modal/confirm-order-modal.component';
-import { CartService } from './services/cart.service';
-import { ConfirmOrderService } from './services/confirm-order.service';
+import { CartService } from './services/cart/cart.service';
+import { ConfirmOrderService } from './services/confirm-order/confirm-order.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 

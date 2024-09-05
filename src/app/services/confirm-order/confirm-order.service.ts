@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { CartService } from './cart.service';
+import { CartService } from '../cart/cart.service';
 import { map } from 'rxjs';
 
 @Injectable({
