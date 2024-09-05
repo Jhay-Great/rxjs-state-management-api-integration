@@ -32,6 +32,7 @@ export class ShoppingCardComponent implements OnInit {
     private productService: ShopDataService,
     private cartService: CartService,
   ) {
+    this.cartService.getCartItems();
     // console.log(this.productService.items$.length);
   }
   
@@ -42,21 +43,10 @@ export class ShoppingCardComponent implements OnInit {
     // });
     
   }
-//   export interface OrderItem {
-//     orderId: string;
-//     name: string | undefined;
-//     price: number | undefined;
-//     quantityCount: number;
-//     productId: string | undefined;
-// }
 
   onAddToCart (id:string) { 
-    // console.log(id);
     this.addToCartIsClicked = true;
-    this.cartService.getProductItem(id);
-
-    
-    
+    this.cartService.addToCart(id);
   }
 
   onReduceProductQuantity (id:string) {

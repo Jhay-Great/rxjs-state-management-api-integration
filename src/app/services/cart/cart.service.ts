@@ -39,12 +39,18 @@ export class CartService {
         // ).subscribe(total => this.totalPriceSubject.next(total));
    }
 
-   addToCart (order:OrderItem) {
-
+   addToCart (name:string) {
+    this.getProductItem(name).pipe(
+      tap(data => {
+        this.cartItems = [...this.cartItems, data];
+        this.cartSubject$.next(this.cartItems);
+      }),
+    )
+    .subscribe();
    }
 
-   getProductItem (name:string) {
-    this.itemStore.findItem(name).pipe(
+   private getProductItem (name:string) {
+    return this.itemStore.findItem(name).pipe(
       map(item => {
         const order = {
           name: item?.name,
@@ -54,15 +60,7 @@ export class CartService {
           orderId: '',
         }
         return order
-      }),
-      tap(data => {
-        // console.log(data);
-        this.cartItems = [...this.cartItems, data];
-        // console.log(this.cartItems);
-        this.cartSubject$.next(this.cartItems);
-      }),
-    )
-    .subscribe();
+      }))
    }
 
    getCartItems(): Observable<OrderItem[]> {
