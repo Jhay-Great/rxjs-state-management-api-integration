@@ -42,7 +42,7 @@ export class ShoppingCardComponent implements OnInit {
     
   }
 
-  onAddToCart (id:string) {
+  onAddToCart (id:string) { 
 
   }
 
