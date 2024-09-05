@@ -26,7 +26,7 @@ export class CartComponent {
   ) { 
     this.data = this.cartService.getCartItems();
     // console.log(this.data);
-    this.data.subscribe(val => console.log(val))
+    // this.data.subscribe(val => console.log(val))
 
     // this.data = this.cartService.getDataFromCart();
     // this.data.pipe(

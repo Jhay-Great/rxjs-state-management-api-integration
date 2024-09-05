@@ -64,7 +64,6 @@ export class CartService {
    }
 
    getCartItems(): Observable<OrderItem[]> {
-    // console.log('called...')
     return this.cartSubject$.asObservable(); 
   }
 

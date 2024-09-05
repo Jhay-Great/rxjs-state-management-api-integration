@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { filter, map, mergeMap, Observable, of, switchMap, take, tap } from 'rxjs';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 
 // local module imports
 import { ShopDataService } from '../../services/shop-data/shop-data.service';
@@ -11,7 +11,7 @@ import { CartService } from '../../services/cart/cart.service';
 @Component({
   selector: 'app-shopping-card',
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, CommonModule],
   templateUrl: './shopping-card.component.html',
   styleUrl: './shopping-card.component.css'
 })
@@ -24,6 +24,8 @@ export class ShoppingCardComponent implements OnInit {
   selectedProductId: string | null = null;
   clicked:string[] = [];
   orderQuantity!:number;
+  orderData!:Observable<OrderItem[]>;
+  productName!:string;
 
   // special as well
   cartState: Map<string, boolean> = new Map();
@@ -32,11 +34,23 @@ export class ShoppingCardComponent implements OnInit {
     private productService: ShopDataService,
     private cartService: CartService,
   ) {
-    this.cartService.getCartItems();
+    // this.cartService.getCartItems().subscribe(
+    //   val => console.log(val),
+    //   // filter(item => item.filter(data => data.name === this.productName))
+    // );
     // console.log(this.productService.items$.length);
   }
   
   ngOnInit(): void {
+    this.orderData = this.cartService.getCartItems();
+    // console.log(this.orderData)
+
+    // this.cartService.getCartItems().subscribe(
+    //   val => console.log(val),
+    // )
+    
+    
+    
     // console.log(this.product)
     // this.cartService.cartState$.subscribe((state:any) => {
     //   this.cartState = state;
@@ -45,6 +59,7 @@ export class ShoppingCardComponent implements OnInit {
   }
 
   onAddToCart (id:string) { 
+    this.productName = id;
     this.addToCartIsClicked = true;
     this.cartService.addToCart(id);
   }
