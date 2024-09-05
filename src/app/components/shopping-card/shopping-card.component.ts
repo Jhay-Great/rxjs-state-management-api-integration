@@ -33,21 +33,11 @@ export class ShoppingCardComponent implements OnInit {
   constructor (
     private productService: ShopDataService,
     private cartService: CartService,
-  ) {
-    // this.cartService.getCartItems().subscribe(
-    //   val => console.log(val),
-    //   // filter(item => item.filter(data => data.name === this.productName))
-    // );
-    // console.log(this.productService.items$.length);
-  }
+  ) {  }
   
   ngOnInit(): void {
     this.orderData = this.cartService.getCartItems();
-    // console.log(this.orderData)
-
-    // this.cartService.getCartItems().subscribe(
-    //   val => console.log(val),
-    // )
+    
     
     
     
@@ -69,7 +59,7 @@ export class ShoppingCardComponent implements OnInit {
   }
 
   onIncreaseProductQuantity (id:string) {
-    
+    this.cartService.increaseQuantity(id)
   }
 
 

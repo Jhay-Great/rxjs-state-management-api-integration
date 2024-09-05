@@ -67,6 +67,40 @@ export class CartService {
     return this.cartSubject$.asObservable(); 
   }
 
+  increaseQuantity (id:string) {
+    this.getProductFromCart(id).pipe(
+      // map(products => 
+      //   products.map(product => 
+      //     product.name === id ? { ...product, quantityCount: product.quantityCount + 1 } : product
+      //   )
+      // ),
+      map(product => 
+          product.map(product =>
+          ({...product, quantityCount: product.quantityCount + 1})
+          )
+          // item => item.quantityCount++
+        ),
+        tap(updatedProducts => {
+          // Update the cartItems state
+          this.cartItems = updatedProducts;
+          this.cartSubject$.next(this.cartItems); // Notify subscribers
+        })
+      // tap(data => {
+
+      //   console.log(data);
+      //   this.cartItems = [...this.cartItems]
+      //   // console.log(this.cartItems);
+      //   // this.cartSubject$.next(this.cartItems);
+      // })
+    ).subscribe();
+  }
+
+  private getProductFromCart (id:string) {
+    return this.getCartItems().pipe(
+      map(orders => orders.filter(product => product.name === id)),
+    )
+  }
+
 
 
   // special because i don't understand and i get copied it, hoping it'll work coz i was tired of thinking
