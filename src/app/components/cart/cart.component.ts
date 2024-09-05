@@ -16,7 +16,7 @@ export class CartComponent {
 
   // isCartEmpty:boolean = !false;
   // isCartEmpty!: Observable<boolean>;
-  // data
+  data
   // length$!: Observable<number>;
   // totalPrice$ = this.cartService.getTotalPrice();
 
@@ -24,6 +24,10 @@ export class CartComponent {
     private cartService: CartService,
     private confirmService: ConfirmOrderService,
   ) { 
+    this.data = this.cartService.getCartItems();
+    // console.log(this.data);
+    this.data.subscribe(val => console.log(val))
+
     // this.data = this.cartService.getDataFromCart();
     // this.data.pipe(
     //   map(item => item.map(b => b))

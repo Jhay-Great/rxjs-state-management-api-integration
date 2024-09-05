@@ -36,21 +36,31 @@ export class ShoppingCardComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    // console.log(this.product)
     // this.cartService.cartState$.subscribe((state:any) => {
     //   this.cartState = state;
     // });
     
   }
+//   export interface OrderItem {
+//     orderId: string;
+//     name: string | undefined;
+//     price: number | undefined;
+//     quantityCount: number;
+//     productId: string | undefined;
+// }
 
   onAddToCart (id:string) { 
-    console.log(id);
+    // console.log(id);
     this.addToCartIsClicked = true;
+    this.cartService.getProductItem(id);
+
     
     
   }
 
   onReduceProductQuantity (id:string) {
-    // this.addToCartIsClicked = false; // use this to display addToCart btn
+    this.addToCartIsClicked = false; // use this to display addToCart btn
   }
 
   onIncreaseProductQuantity (id:string) {

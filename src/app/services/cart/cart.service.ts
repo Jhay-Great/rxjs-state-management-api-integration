@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { v4 as uuid } from 'uuid';
+
 import { OrderItem, Product } from '../../interfaces/shop-data.interface';
 import { ShopDataService } from '../shop-data/shop-data.service';
 import { BehaviorSubject, Observable, filter, map, of, tap } from 'rxjs';
@@ -9,7 +11,7 @@ import { BehaviorSubject, Observable, filter, map, of, tap } from 'rxjs';
 export class CartService {
 
   private cartItems:OrderItem[] = [];
-  private cartSubject = new BehaviorSubject(this.cartItems);
+  private cartSubject$ = new BehaviorSubject(this.cartItems);
 
 
   // isConfirmed: boolean = false;
@@ -29,7 +31,7 @@ export class CartService {
   // cartState$ = this.cartStateSubject.asObservable();
 
   constructor(
-    private store:ShopDataService,
+    private itemStore:ShopDataService,
   ) { 
         // Recalculate total price whenever orderedItems changes
         // this.orders$.pipe(
@@ -40,6 +42,34 @@ export class CartService {
    addToCart (order:OrderItem) {
 
    }
+
+   getProductItem (name:string) {
+    this.itemStore.findItem(name).pipe(
+      map(item => {
+        const order = {
+          name: item?.name,
+          price: item?.price,
+          quantityCount: 1,
+          productId: '',
+          orderId: '',
+        }
+        return order
+      }),
+      tap(data => {
+        // console.log(data);
+        this.cartItems = [...this.cartItems, data];
+        // console.log(this.cartItems);
+        this.cartSubject$.next(this.cartItems);
+      }),
+    )
+    .subscribe();
+   }
+
+   getCartItems(): Observable<OrderItem[]> {
+    // console.log('called...')
+    return this.cartSubject$.asObservable(); 
+  }
+
 
 
   // special because i don't understand and i get copied it, hoping it'll work coz i was tired of thinking

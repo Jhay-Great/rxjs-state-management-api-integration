@@ -10,7 +10,7 @@
         <!-- @if (addProductToCart(product.id)) { -->
         <!-- @if (!isProductSelected(product.id)) { -->
         <!-- @if (!cartState.get(product.id)) { -->
-            <button class="addToCart-btn" (click)="onAddToCart(product.id)">
+            <button class="addToCart-btn" (click)="onAddToCart(product.name)">
               <!-- svg icon -->
               <img
                 src="../../../assets/images/icon-add-to-cart.svg"

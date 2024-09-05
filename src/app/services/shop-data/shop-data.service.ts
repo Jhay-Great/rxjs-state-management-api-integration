@@ -23,15 +23,20 @@ export class ShopDataService {
    }
    
 
-  getData () {
+  getData () :Observable<ProductList> {
     this.fetchProductData()
     return this.data$
   }
 
-  findItem (id:string) {
+  findItem (name:string) {
     return this.data$.pipe(
-      map(data => data.find(data => data.id === id)),
+      map(data => data.find(data => data.name === name)),
     )
   }
+  // findItem (id:string) {
+  //   return this.data$.pipe(
+  //     map(data => data.find(data => data.id === id)),
+  //   )
+  // }
   
 }
