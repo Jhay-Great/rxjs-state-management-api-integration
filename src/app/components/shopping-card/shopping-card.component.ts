@@ -7,6 +7,7 @@ import { ShopDataService } from '../../services/shop-data.service';
 import { ProductList, Product, OrderItem } from '../../interfaces/shop-data.interface';
 import { CartService } from '../../services/cart.service';
 
+
 @Component({
   selector: 'app-shopping-card',
   standalone: true,

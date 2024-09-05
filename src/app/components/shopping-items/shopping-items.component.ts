@@ -3,12 +3,13 @@ import { AsyncPipe } from '@angular/common';
 
 // local module imports
 import { ShopDataService } from '../../services/shop-data.service';
+// import { ShopDataService } from '../../services/shop-data.service';
 import { map, Observable } from 'rxjs';
 
 // interfaces
 import { ProductList,  } from '../../interfaces/shop-data.interface';
 import { ShoppingCardComponent } from '../shopping-card/shopping-card.component';
-import { CartComponent } from "../cart/cart.component";
+import { CartComponent } from '../cart/cart.component';
 
 @Component({
   selector: 'app-shopping-items',
