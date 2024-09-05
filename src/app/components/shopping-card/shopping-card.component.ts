@@ -36,18 +36,21 @@ export class ShoppingCardComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.cartService.cartState$.subscribe((state:any) => {
-      this.cartState = state;
-    });
+    // this.cartService.cartState$.subscribe((state:any) => {
+    //   this.cartState = state;
+    // });
     
   }
 
   onAddToCart (id:string) { 
-
+    console.log(id);
+    this.addToCartIsClicked = true;
+    
+    
   }
 
   onReduceProductQuantity (id:string) {
-
+    // this.addToCartIsClicked = false; // use this to display addToCart btn
   }
 
   onIncreaseProductQuantity (id:string) {

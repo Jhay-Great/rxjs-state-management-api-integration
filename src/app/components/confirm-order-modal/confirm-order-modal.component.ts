@@ -13,24 +13,25 @@ import { Observable } from 'rxjs';
 })
 export class ConfirmOrderModalComponent implements OnInit {
 
-  data
+  // data
   totalPrice$!: Observable<number>
   
   constructor (
     private cartService: CartService,
     private confirmService: ConfirmOrderService,
   ) {
-    this.data = this.cartService.getDataFromCart();
+    // this.data = this.cartService.getDataFromCart();
+    // this.data = ['']
     
   };
   
   ngOnInit(): void {
-    this.totalPrice$ = this.cartService.getTotalPrice();
+    // this.totalPrice$ = this.cartService.getTotalPrice();
     
   }
 
   startNewOrder() {
-    this.confirmService.handleNewOrders();
+    // this.confirmService.handleNewOrders();
     // this.cartService.
   }
 

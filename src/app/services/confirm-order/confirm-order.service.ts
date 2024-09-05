@@ -20,11 +20,11 @@ export class ConfirmOrderService {
     this.isConfirmedSubject.next(true);
   }
 
-  handleNewOrders () {
-    this.isConfirmedSubject.next(false);
-    this.cartService.removeAllItems();
-    this.cartService.clearOrders();
-  }
+  // handleNewOrders () {
+  //   this.isConfirmedSubject.next(false);
+  //   this.cartService.removeAllItems();
+  //   this.cartService.clearOrders();
+  // }
 
   // removeItems () {
   //   const data = this.cartService.getDataFromCart();

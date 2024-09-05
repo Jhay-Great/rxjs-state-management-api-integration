@@ -8,12 +8,12 @@
         <p>We hope you enjoy your food!</p>
     </div>
     <ul class="confirmed-orders-list">
-        @for (item of data | async ; track $index) {
+        <!-- @for (item of data | async ; track $index) {
             <div class="list-container">
                 <div>
-                    <!-- img -->
+                    <!-- img --
                     <img src="../../../assets/images/image-baklava-desktop.jpg" alt="image of ordered product">
-                    <!-- order details -->
+                    <!-- order details --
                     <li>
                         <p>
                             {{ item.name}}
@@ -23,7 +23,7 @@
                             <p class="unit-price"> &#64; {{item.price | currency}}</p>
                         </div>
                     </li>
-                    <!-- price -->
+                    <!-- price --
                     <p class="quantity-price">
                         {{(item.price ?? 0) * item.quantityCount | currency }}
                     </p>
@@ -32,7 +32,7 @@
     
             </div>
 
-        }
+        } -->
         
 
         <div class="total">
