@@ -49,6 +49,10 @@ export class CartService {
         this.cartItems = [...this.cartItems, data];
         console.log(this.cartItems);
         this.cartSubject$.next(this.cartItems);
+
+        // calculating the current total order
+        this.totalOrder();
+        
       }),
     )
     .subscribe();
@@ -111,6 +115,7 @@ export class CartService {
             this.cartItems = updatedCartItems;
             this.cartSubject$.next(this.cartItems);
 
+            // calculates the total price
             this.totalOrder();
             
           }
@@ -153,6 +158,9 @@ export class CartService {
 
             this.cartItems = updatedCartItems;
             this.cartSubject$.next(this.cartItems);
+
+            // calculates the total price
+            this.totalOrder();
 
           }
           
