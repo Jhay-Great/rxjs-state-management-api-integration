@@ -60,6 +60,7 @@ export class ShoppingCardComponent implements OnInit {
       quantity => {
         // console.log(quantity);
         if (quantity > 0) return;
+        this.cartService.removeOrderFromCart(id);
         this.addToCartIsClicked = false; // use this to display addToCart btn
         
       }

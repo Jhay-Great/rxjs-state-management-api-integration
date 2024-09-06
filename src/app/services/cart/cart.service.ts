@@ -47,6 +47,7 @@ export class CartService {
       }),
     )
     .subscribe();
+    console.log('added to cart: ', this.cartItems); // log items in the cart
    }
 
   //  considering changing function name to createOrderItem or createOrderObject or createOrder
@@ -112,6 +113,8 @@ export class CartService {
           )
         ),
         tap(data => {
+
+          // if quantity count is 0 then remove item from the cart
           
           const productIndex = this.cartItems.findIndex(product => product.name === data[0].name);
 
@@ -155,6 +158,12 @@ export class CartService {
         return quantity
       })
     )
+  }
+
+  removeOrderFromCart (id:string) {
+    const updatedCart = this.cartItems.filter(item => item.name !== id);
+    this.cartItems = updatedCart;
+    this.cartSubject$.next(this.cartItems)
   }
 
 
