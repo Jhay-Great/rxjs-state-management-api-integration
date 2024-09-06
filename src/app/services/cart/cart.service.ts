@@ -47,7 +47,7 @@ export class CartService {
       }),
     )
     .subscribe();
-    console.log('added to cart: ', this.cartItems); // log items in the cart
+    // console.log('added to cart: ', this.cartItems); // log items in the cart
    }
 
   //  considering changing function name to createOrderItem or createOrderObject or createOrder

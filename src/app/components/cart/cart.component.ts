@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
 // local module imports
 import { CartService } from '../../services/cart/cart.service';
 import { ConfirmOrderService } from '../../services/confirm-order/confirm-order.service';
+import { OrderItem } from '../../interfaces/shop-data.interface';
 
 @Component({
   selector: 'app-cart',
@@ -12,11 +13,12 @@ import { ConfirmOrderService } from '../../services/confirm-order/confirm-order.
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
-export class CartComponent {
+export class CartComponent implements OnInit {
 
   // isCartEmpty:boolean = !false;
   // isCartEmpty!: Observable<boolean>;
-  data
+  // data!:Observable<OrderItem[]>
+  cartItems!:Observable<OrderItem[]>
   // length$!: Observable<number>;
   // totalPrice$ = this.cartService.getTotalPrice();
 
@@ -24,9 +26,9 @@ export class CartComponent {
     private cartService: CartService,
     private confirmService: ConfirmOrderService,
   ) { 
-    this.data = this.cartService.getCartItems();
     // console.log(this.data);
     // this.data.subscribe(val => console.log(val))
+    // this.data = this.cartService.getCartItems();
 
     // this.data = this.cartService.getDataFromCart();
     // this.data.pipe(
@@ -45,6 +47,11 @@ export class CartComponent {
     // this.totalPrice$ = this.cartService.getTotalPrice();
     
    };
+
+   ngOnInit(): void {
+    this.cartItems = this.cartService.getCartItems();
+
+   }
 
   //  removeItem (id:string | undefined) {
   //   if (!id) return;
