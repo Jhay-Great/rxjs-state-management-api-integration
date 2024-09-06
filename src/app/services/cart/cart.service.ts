@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import { OrderItem, Product } from '../../interfaces/shop-data.interface';
 import { ShopDataService } from '../shop-data/shop-data.service';
-import { BehaviorSubject, Observable, filter, map, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, filter, from, map, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +49,7 @@ export class CartService {
     .subscribe();
    }
 
+  //  considering changing function name to createOrderItem or createOrderObject or createOrder
    private getProductItem (name:string) {
     return this.itemStore.findItem(name).pipe(
       map(item => {
@@ -69,36 +70,42 @@ export class CartService {
 
   increaseQuantity (id:string) {
     this.getProductFromCart(id).pipe(
-      // map(products => 
-      //   products.map(product => 
-      //     product.name === id ? { ...product, quantityCount: product.quantityCount + 1 } : product
-      //   )
-      // ),
       map(product => 
           product.map(product =>
           ({...product, quantityCount: product.quantityCount + 1})
           )
           // item => item.quantityCount++
         ),
-        tap(updatedProducts => {
-          // Update the cartItems state
-          this.cartItems = updatedProducts;
-          this.cartSubject$.next(this.cartItems); // Notify subscribers
-        })
-      // tap(data => {
+        // tap(updatedProducts => {
+        //   console.log(updatedProducts)
+        //   // Update the cartItems state
+        //   this.cartItems = updatedProducts;
+        //   this.cartSubject$.next(this.cartItems); // Notify subscribers
+        // })
+      tap(data => {
 
-      //   console.log(data);
-      //   this.cartItems = [...this.cartItems]
-      //   // console.log(this.cartItems);
-      //   // this.cartSubject$.next(this.cartItems);
-      // })
-    ).subscribe();
+        console.log(data);
+        this.cartItems = [...this.cartItems, ...data]
+        // console.log(this.cartItems);
+        this.cartSubject$.next(this.cartItems);
+      })
+    )
+    .subscribe();
   }
 
   private getProductFromCart (id:string) {
-    return this.getCartItems().pipe(
-      map(orders => orders.filter(product => product.name === id)),
-    )
+    // console.log('initial array: ', this.cartItems);
+
+    const productItem = this.cartItems.filter(product => product.name === id);
+    console.log('this is the product found in the cart array: ',productItem);
+    // return from(productItem);
+    return of(productItem);
+
+    // using the subject here was causing the loop
+    // return this.getCartItems().pipe(
+    //   tap(() => console.log('called again...')),
+    //   map(orders => orders.filter(product => product.name === id)),
+    // )
   }
 
 
