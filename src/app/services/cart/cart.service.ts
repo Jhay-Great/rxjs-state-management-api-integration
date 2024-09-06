@@ -74,7 +74,6 @@ export class CartService {
           product.map(product =>
           ({...product, quantityCount: product.quantityCount + 1})
           )
-          // item => item.quantityCount++
         ),
         tap(data => {
           
