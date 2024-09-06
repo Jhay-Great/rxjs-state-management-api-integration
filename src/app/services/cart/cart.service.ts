@@ -40,7 +40,7 @@ export class CartService {
    }
 
    addToCart (name:string) {
-    this.getProductItem(name).pipe(
+    this.createOrder(name).pipe(
       tap(data => {
         this.cartItems = [...this.cartItems, data];
         this.cartSubject$.next(this.cartItems);
@@ -51,7 +51,7 @@ export class CartService {
    }
 
   //  considering changing function name to createOrderItem or createOrderObject or createOrder
-   private getProductItem (name:string) {
+   private createOrder (name:string) {
     return this.itemStore.findItem(name).pipe(
       map(item => {
         const order = {
@@ -70,7 +70,7 @@ export class CartService {
   }
 
   increaseQuantity (id:string) {
-    this.getProductFromCart(id).pipe(
+    this.getOrderFromCart(id).pipe(
       map(product => 
           product.map(product =>
           ({...product, quantityCount: product.quantityCount + 1})
@@ -106,7 +106,7 @@ export class CartService {
   }
 
   decreaseQuantity (id:string) {
-    this.getProductFromCart(id).pipe(
+    this.getOrderFromCart(id).pipe(
       map(product => 
           product.map(product =>
           ({...product, quantityCount: product.quantityCount - 1})
@@ -115,6 +115,7 @@ export class CartService {
         tap(data => {
 
           // if quantity count is 0 then remove item from the cart
+          // abstract removing order from cart call from component
           
           const productIndex = this.cartItems.findIndex(product => product.name === data[0].name);
 
@@ -144,17 +145,16 @@ export class CartService {
   }
 
   // change function name to getOrderFromCart()
-  private getProductFromCart (id:string) {
+  private getOrderFromCart (id:string) {
     const productItem = this.cartItems.filter(product => product.name === id);
     return of(productItem);
     
   }
 
   getQuantityCount (id:string) {
-    return this.getProductFromCart(id).pipe(
+    return this.getOrderFromCart(id).pipe(
       map(data => {
         const quantity = data[0].quantityCount;
-        // console.log(quantity);
         return quantity
       })
     )
