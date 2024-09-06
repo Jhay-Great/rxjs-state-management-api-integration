@@ -76,28 +76,65 @@ export class CartService {
           )
           // item => item.quantityCount++
         ),
+        tap(data => {
+          
+          // we want to replace just the specific object with the updated data, keeping or initial data intact,
+          // we can find the object by using the findIndex then use the spread operator to spread the object to prevent mutation
+          // conditionally select the object then replace it
+
+          const productIndex = this.cartItems.findIndex(product => product.name === data[0].name);
+
+          if ( productIndex !== -1 ) {
+            const item = {
+              ...this.cartItems[productIndex],
+              ...data[0],
+            } 
+
+            const updatedCartItems = [
+              ...this.cartItems.slice(0, productIndex),
+              item,
+              ...this.cartItems.slice(productIndex + 1),
+
+            ];
+
+            console.log(updatedCartItems);
+            this.cartItems = updatedCartItems;
+            this.cartSubject$.next(this.cartItems);
+
+          }
+          
+          // console.log(data);
+          // const d = this.cartItems.map(products => {
+          //   return products.name === data[0].name ? (console.log(products.name, data[0].quantityCount), {...products, ...data }) : products;
+          // })
+          // console.log(d);
+          
+          
+        })
+        // NOTE: replaces the entire array
         // tap(updatedProducts => {
         //   console.log(updatedProducts)
         //   // Update the cartItems state
         //   this.cartItems = updatedProducts;
         //   this.cartSubject$.next(this.cartItems); // Notify subscribers
         // })
-      tap(data => {
+        // NOTE: does not replace but creates a new object 
+      // tap(data => {
 
-        console.log(data);
-        this.cartItems = [...this.cartItems, ...data]
-        // console.log(this.cartItems);
-        this.cartSubject$.next(this.cartItems);
-      })
+      //   console.log(data);
+      //   this.cartItems = [...this.cartItems, ...data]
+      //   // console.log(this.cartItems);
+      //   this.cartSubject$.next(this.cartItems);
+      // })
     )
     .subscribe();
   }
 
   private getProductFromCart (id:string) {
-    // console.log('initial array: ', this.cartItems);
+    console.log('initial array on increase: ', this.cartItems);
 
     const productItem = this.cartItems.filter(product => product.name === id);
-    console.log('this is the product found in the cart array: ',productItem);
+    // console.log('this is the product found in the cart array: ',productItem);
     // return from(productItem);
     return of(productItem);
 
