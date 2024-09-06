@@ -78,10 +78,6 @@ export class CartService {
         ),
         tap(data => {
           
-          // we want to replace just the specific object with the updated data, keeping or initial data intact,
-          // we can find the object by using the findIndex then use the spread operator to spread the object to prevent mutation
-          // conditionally select the object then replace it
-
           const productIndex = this.cartItems.findIndex(product => product.name === data[0].name);
 
           if ( productIndex !== -1 ) {
@@ -103,29 +99,9 @@ export class CartService {
 
           }
           
-          // console.log(data);
-          // const d = this.cartItems.map(products => {
-          //   return products.name === data[0].name ? (console.log(products.name, data[0].quantityCount), {...products, ...data }) : products;
-          // })
-          // console.log(d);
-          
           
         })
-        // NOTE: replaces the entire array
-        // tap(updatedProducts => {
-        //   console.log(updatedProducts)
-        //   // Update the cartItems state
-        //   this.cartItems = updatedProducts;
-        //   this.cartSubject$.next(this.cartItems); // Notify subscribers
-        // })
-        // NOTE: does not replace but creates a new object 
-      // tap(data => {
-
-      //   console.log(data);
-      //   this.cartItems = [...this.cartItems, ...data]
-      //   // console.log(this.cartItems);
-      //   this.cartSubject$.next(this.cartItems);
-      // })
+        
     )
     .subscribe();
   }
