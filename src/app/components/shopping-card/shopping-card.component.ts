@@ -55,7 +55,8 @@ export class ShoppingCardComponent implements OnInit {
   }
 
   onReduceProductQuantity (id:string) {
-    this.addToCartIsClicked = false; // use this to display addToCart btn
+    this.cartService.decreaseQuantity(id);
+    // this.addToCartIsClicked = false; // use this to display addToCart btn
   }
 
   onIncreaseProductQuantity (id:string) {

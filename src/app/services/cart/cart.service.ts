@@ -92,7 +92,42 @@ export class CartService {
 
             ];
 
-            console.log(updatedCartItems);
+            this.cartItems = updatedCartItems;
+            this.cartSubject$.next(this.cartItems);
+
+          }
+          
+          
+        })
+        
+    )
+    .subscribe();
+  }
+
+  decreaseQuantity (id:string) {
+    this.getProductFromCart(id).pipe(
+      map(product => 
+          product.map(product =>
+          ({...product, quantityCount: product.quantityCount - 1})
+          )
+        ),
+        tap(data => {
+          
+          const productIndex = this.cartItems.findIndex(product => product.name === data[0].name);
+
+          if ( productIndex !== -1 ) {
+            const item = {
+              ...this.cartItems[productIndex],
+              ...data[0],
+            } 
+
+            const updatedCartItems = [
+              ...this.cartItems.slice(0, productIndex),
+              item,
+              ...this.cartItems.slice(productIndex + 1),
+
+            ];
+
             this.cartItems = updatedCartItems;
             this.cartSubject$.next(this.cartItems);
 
