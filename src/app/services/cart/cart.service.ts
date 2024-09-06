@@ -107,18 +107,9 @@ export class CartService {
   }
 
   private getProductFromCart (id:string) {
-    console.log('initial array on increase: ', this.cartItems);
-
     const productItem = this.cartItems.filter(product => product.name === id);
-    // console.log('this is the product found in the cart array: ',productItem);
-    // return from(productItem);
     return of(productItem);
-
-    // using the subject here was causing the loop
-    // return this.getCartItems().pipe(
-    //   tap(() => console.log('called again...')),
-    //   map(orders => orders.filter(product => product.name === id)),
-    // )
+    
   }
 
 
