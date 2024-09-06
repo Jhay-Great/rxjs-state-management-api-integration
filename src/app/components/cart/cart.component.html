@@ -5,7 +5,8 @@
 
 <section class="detail">
     <!-- @if(isCartEmpty) { -->
-    <!-- @if(!(isCartEmpty | async)) {
+    <!-- @if(!(isCartEmpty | async)) { -->
+    @if(length === 0) {
         <div class="empty-cart">
             <img src="../../../assets/images/illustration-empty-cart.svg" alt="image of an empty cart, when cart is empty">
     
@@ -14,7 +15,7 @@
             </p>
         </div>
 
-    }  -->
+    } 
     <!-- @else {
         <div class="cart-content">
             <!-- select product item(s) --

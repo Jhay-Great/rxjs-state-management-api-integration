@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { map, Observable, Subscription } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
 // local module imports
 import { CartService } from '../../services/cart/cart.service';
@@ -13,12 +13,14 @@ import { OrderItem } from '../../interfaces/shop-data.interface';
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
 
   // isCartEmpty:boolean = !false;
   // isCartEmpty!: Observable<boolean>;
   // data!:Observable<OrderItem[]>
   cartItems!:Observable<OrderItem[]>
+  length!:number;
+  subscription!:Subscription;
   // length$!: Observable<number>;
   // totalPrice$ = this.cartService.getTotalPrice();
 
@@ -50,7 +52,18 @@ export class CartComponent implements OnInit {
 
    ngOnInit(): void {
     this.cartItems = this.cartService.getCartItems();
+    this.subscription = this.cartItems.subscribe(
+      val => {
+        this.length = val.length;
+        console.log(val.length);
+        console.log(val.length === 0)
+      },
+    )
 
+   }
+
+   ngOnDestroy(): void {
+     this.subscription.unsubscribe();
    }
 
   //  removeItem (id:string | undefined) {
