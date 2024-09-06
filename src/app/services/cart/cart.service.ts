@@ -116,6 +116,7 @@ export class CartService {
             this.cartSubject$.next(this.cartItems);
 
             // calculates the total price
+            this.calculateQuantityTotal(id);
             this.totalOrder();
             
           }
@@ -125,7 +126,7 @@ export class CartService {
         
     )
     .subscribe();
-    this.calculateQuantityTotal(id).subscribe();
+    // this.calculateQuantityTotal(id).subscribe();
 
   }
 
@@ -160,6 +161,7 @@ export class CartService {
             this.cartSubject$.next(this.cartItems);
 
             // calculates the total price
+            this.calculateQuantityTotal(id) // alternative call
             this.totalOrder();
 
           }
@@ -169,7 +171,7 @@ export class CartService {
         
     )
     .subscribe();
-    this.calculateQuantityTotal(id).subscribe();
+    // this.calculateQuantityTotal(id).subscribe();
   }
 
   private updateOrderItem (data:OrderItem[]) {
@@ -223,6 +225,7 @@ export class CartService {
       // ),
       map(product => 
         product.map(order => {
+          console.log(order.quantityCount, order.price)
           const item = {
             ...order, 
             totalQuantityPrice: order.quantityCount * (order?.price ?? 0)
@@ -236,6 +239,7 @@ export class CartService {
         
       )
     )
+    .subscribe();
   }
   
     
