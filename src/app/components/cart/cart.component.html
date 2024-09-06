@@ -16,11 +16,11 @@
         </div>
 
     } 
-    <!-- @else {
+    @else {
         <div class="cart-content">
-            <!-- select product item(s) --
+            <!-- select product item(s) -->
             <ul>
-                @for (order of data | async; track $index) {
+                @for (order of cartItems | async; track $index) {
                     <div>
                         <li>
                             <p class="product-name">
@@ -32,7 +32,7 @@
                                 <p class="total-unit-price">{{(order.price ?? 0) * order.quantityCount | currency }}</p>
                             </div>
                         </li>
-                        <button class="close-btn" (click)="removeItem(order.productId)">
+                        <button class="close-btn" (click)="removeItem(order.name)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10"><path d="M8.375 9.375 5 6 1.625 9.375l-1-1L4 5 .625 1.625l1-1L5 4 8.375.625l1 1L6 5l3.375 3.375-1 1Z"/></svg>
                         </button>
                     </div>
@@ -52,24 +52,24 @@
                     <button class="close-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10"><path d="M8.375 9.375 5 6 1.625 9.375l-1-1L4 5 .625 1.625l1-1L5 4 8.375.625l1 1L6 5l3.375 3.375-1 1Z"/></svg>
                     </button>
-                </div> --
+                </div> -->
             </ul>
 
             <hr>
 
-            <!-- order total --
+            <!-- order total -->
             <section class="order-total">
                 <p>
                     Order Total
                 </p>
                 <p>
-                    {{ (totalPrice$ | async) | currency  }}
-                    <!-- $44.59 --
+                    <!-- {{ (totalPrice$ | async) | currency  }} -->
+                    <!-- $44.59 -->
                 </p>
             </section>
-            <!-- message --
+            <!-- message -->
             <section class="message">
-                <!-- svg --
+                <!-- svg -->
                 <img src="../../../assets/images/icon-carbon-neutral.svg" alt="svg icon to signify carbon-neutral delivery">
                 <p>
                     This is 
@@ -80,13 +80,13 @@
                 </p>
             </section>
 
-            <!-- confirm order button --
+            <!-- confirm order button -->
             <button class="confirm-order" (click)="confirmOrder()" (keypress)="handleConfirmation($event)">
                 Confirm order
             </button>
         </div>
 
-    } -->
+    }
 
 
 </section>

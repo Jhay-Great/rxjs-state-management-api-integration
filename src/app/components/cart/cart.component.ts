@@ -55,8 +55,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.subscription = this.cartItems.subscribe(
       val => {
         this.length = val.length;
-        console.log(val.length);
-        console.log(val.length === 0)
+        
       },
     )
 
@@ -66,22 +65,21 @@ export class CartComponent implements OnInit, OnDestroy {
      this.subscription.unsubscribe();
    }
 
-  //  removeItem (id:string | undefined) {
-  //   if (!id) return;
+   removeItem (id:string | undefined) {
+    if (!id) return;
+    this.cartService.removeOrderFromCart(id);
     
-  //   // this.cartService.updateCartState(id, false);
-  //   // this.cartService.removeItemFromCart(id);
-  //  }
+   }
 
-  //  confirmOrder() {
-  //   this.confirmService.confirmOrder();
-  // }
+   confirmOrder() {
+    this.confirmService.confirmOrder();
+  }
 
-  // handleConfirmation (event: KeyboardEvent) {
-  //   console.log(event);
+  handleConfirmation (event: KeyboardEvent) {
+    // console.log(event);
     
 
-  // }
+  }
 
 
 }
