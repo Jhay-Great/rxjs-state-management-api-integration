@@ -140,10 +140,21 @@ export class CartService {
     .subscribe();
   }
 
+  // change function name to getOrderFromCart()
   private getProductFromCart (id:string) {
     const productItem = this.cartItems.filter(product => product.name === id);
     return of(productItem);
     
+  }
+
+  getQuantityCount (id:string) {
+    return this.getProductFromCart(id).pipe(
+      map(data => {
+        const quantity = data[0].quantityCount;
+        // console.log(quantity);
+        return quantity
+      })
+    )
   }
 
 
