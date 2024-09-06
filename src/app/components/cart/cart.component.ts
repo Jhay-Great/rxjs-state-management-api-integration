@@ -23,6 +23,7 @@ export class CartComponent implements OnInit, OnDestroy {
   subscription!:Subscription;
   // length$!: Observable<number>;
   // totalPrice$ = this.cartService.getTotalPrice();
+  totalPrice$!: Observable<number>;
 
   constructor (
     private cartService: CartService,
@@ -58,6 +59,9 @@ export class CartComponent implements OnInit, OnDestroy {
         
       },
     )
+    // this.totalPrice$ = this.cartService.totalOrder();
+    this.totalPrice$ = this.cartService.totalPrice;
+
 
    }
 

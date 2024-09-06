@@ -13,6 +13,10 @@ export class CartService {
   private cartItems:OrderItem[] = [];
   private cartSubject$ = new BehaviorSubject(this.cartItems);
 
+  // total price
+  private totalPriceSubject$ = new BehaviorSubject<number>(0);
+  totalPrice = this.totalPriceSubject$;
+
 
   // isConfirmed: boolean = false;
   // private isConfirmedSubject = new BehaviorSubject<boolean>(this.isConfirmed);
@@ -43,6 +47,7 @@ export class CartService {
     this.createOrder(name).pipe(
       tap(data => {
         this.cartItems = [...this.cartItems, data];
+        console.log(this.cartItems);
         this.cartSubject$.next(this.cartItems);
       }),
     )
@@ -77,7 +82,7 @@ export class CartService {
   }
 
   increaseQuantity (id:string) {
-    console.log(this.totalOrder()); // remove this later, strictly for dev mode
+    // console.log(this.totalOrder()); // remove this later, strictly for dev mode
     
     this.getOrderFromCart(id).pipe(
       map(product => 
@@ -106,6 +111,8 @@ export class CartService {
             this.cartItems = updatedCartItems;
             this.cartSubject$.next(this.cartItems);
 
+            this.totalOrder();
+            
           }
           
           
@@ -226,15 +233,28 @@ export class CartService {
     
 
   totalOrder () {
-    // return this.cartItems.reduce((acc, curr) => acc + (curr.price ?? 0), 0)
+    // console.log(this.cartItems);
 
+    // go through the array and get the totalQuantityPrice and add the numbers
+    // reduce method, map and add logic
 
+    // creating an observable, subscribing to the subject will trigger a multiple rendering
+    const data = of(this.cartItems).pipe(
+      map(purchaseData => 
+        purchaseData.reduce((acc, curr) => {
+          const result = acc + (curr.totalQuantityPrice ?? 0);
+          return result;
 
-    // let count = 0;
-    // this.cartItems.map(item => {
-    //   count = ( item.price ?? 0 ) + 0
-    // })
-    // return count;
+        }, 0)
+      ),
+      tap(value => {
+        console.log(value);
+        this.totalPriceSubject$.next(value)
+      }),
+    )
+    .subscribe();
+    return data;
+    
   }
 
 
