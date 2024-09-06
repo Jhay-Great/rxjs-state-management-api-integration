@@ -56,7 +56,6 @@ export class CartService {
       }),
     )
     .subscribe();
-    // console.log('added to cart: ', this.cartItems); // log items in the cart
    }
 
   //  considering changing function name to createOrderItem or createOrderObject or createOrder
@@ -75,9 +74,9 @@ export class CartService {
         }
         return order
       }),
-      tap(data => {
-        // console.log(data);
-      })
+      // tap(data => {
+      //   // console.log(data);
+      // })
     )
    }
 
@@ -86,8 +85,6 @@ export class CartService {
   }
 
   increaseQuantity (id:string) {
-    // console.log(this.totalOrder()); // remove this later, strictly for dev mode
-    
     this.getOrderFromCart(id).pipe(
       map(product => 
           product.map(product =>
@@ -95,7 +92,6 @@ export class CartService {
           )
         ),
         tap(data => {
-          // console.log('logging data on increase to see qtyCnt: ', data);
           
           const productIndex = this.cartItems.findIndex(product => product.name === data[0].name);
 
@@ -220,12 +216,9 @@ export class CartService {
 
   calculateQuantityTotal (id:string) {
     return this.getOrderFromCart(id).pipe(
-      // map(order => 
-      //   order.map(product => product.quantityCount * (product?.price ?? 0))
-      // ),
       map(product => 
         product.map(order => {
-          console.log(order.quantityCount, order.price)
+          // console.log(order.quantityCount, order.price)
           const item = {
             ...order, 
             totalQuantityPrice: order.quantityCount * (order?.price ?? 0)
@@ -245,11 +238,6 @@ export class CartService {
     
 
   totalOrder () {
-    // console.log(this.cartItems);
-
-    // go through the array and get the totalQuantityPrice and add the numbers
-    // reduce method, map and add logic
-
     // creating an observable, subscribing to the subject will trigger a multiple rendering
     const data = of(this.cartItems).pipe(
       map(purchaseData => 
@@ -260,7 +248,6 @@ export class CartService {
         }, 0)
       ),
       tap(value => {
-        console.log(value);
         this.totalPriceSubject$.next(value)
       }),
     )
