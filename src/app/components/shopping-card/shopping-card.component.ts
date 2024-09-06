@@ -30,6 +30,9 @@ export class ShoppingCardComponent implements OnInit {
   
   ngOnInit(): void {
     this.orderData = this.cartService.getCartItems();
+    // this.orderData.subscribe(val =>
+    //   console.log('in component: ', val),
+    // ) // for dev purposes strictly
   }
 
   onAddToCart (id:string) { 

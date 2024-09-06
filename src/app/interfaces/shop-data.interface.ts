@@ -27,8 +27,12 @@ export interface OrderData {
 // product item
 export interface OrderItem {
     orderId: string;
+    // name: string;
+    // price: number;
+    // productId: string;
     name: string | undefined;
     price: number | undefined;
-    quantityCount: number;
+    totalQuantityPrice: number
     productId: string | undefined;
+    quantityCount: number;
 }

@@ -54,15 +54,22 @@ export class CartService {
    private createOrder (name:string) {
     return this.itemStore.findItem(name).pipe(
       map(item => {
+        const quantityCount = 1
         const order = {
           name: item?.name,
           price: item?.price,
-          quantityCount: 1,
+          quantityCount,
           productId: '',
           orderId: '',
+          totalQuantityPrice: (item?.price ?? 0) * quantityCount,
+
         }
         return order
-      }))
+      }),
+      tap(data => {
+        // console.log(data);
+      })
+    )
    }
 
    getCartItems(): Observable<OrderItem[]> {
@@ -70,6 +77,8 @@ export class CartService {
   }
 
   increaseQuantity (id:string) {
+    console.log(this.totalOrder()); // remove this later, strictly for dev mode
+    
     this.getOrderFromCart(id).pipe(
       map(product => 
           product.map(product =>
@@ -77,6 +86,7 @@ export class CartService {
           )
         ),
         tap(data => {
+          // console.log('logging data on increase to see qtyCnt: ', data);
           
           const productIndex = this.cartItems.findIndex(product => product.name === data[0].name);
 
@@ -103,6 +113,8 @@ export class CartService {
         
     )
     .subscribe();
+    this.calculateQuantityTotal(id).subscribe();
+
   }
 
   decreaseQuantity (id:string) {
@@ -142,6 +154,29 @@ export class CartService {
         
     )
     .subscribe();
+    this.calculateQuantityTotal(id).subscribe();
+  }
+
+  private updateOrderItem (data:OrderItem[]) {
+    const productIndex = this.cartItems.findIndex(product => product.name === data[0].name);
+
+    if ( productIndex !== -1 ) {
+      const item = {
+        ...this.cartItems[productIndex],
+        ...data[0],
+      } 
+
+      const updatedCartItems = [
+        ...this.cartItems.slice(0, productIndex),
+        item,
+        ...this.cartItems.slice(productIndex + 1),
+
+      ];
+
+      this.cartItems = updatedCartItems;
+      this.cartSubject$.next(this.cartItems);
+
+    }
   }
 
   // change function name to getOrderFromCart()
@@ -164,6 +199,42 @@ export class CartService {
     const updatedCart = this.cartItems.filter(item => item.name !== id);
     this.cartItems = updatedCart;
     this.cartSubject$.next(this.cartItems)
+  }
+
+  calculateQuantityTotal (id:string) {
+    return this.getOrderFromCart(id).pipe(
+      // map(order => 
+      //   order.map(product => product.quantityCount * (product?.price ?? 0))
+      // ),
+      map(product => 
+        product.map(order => {
+          const item = {
+            ...order, 
+            totalQuantityPrice: order.quantityCount * (order?.price ?? 0)
+          }
+          return item
+        })
+      ),
+      tap ( data => {
+        this.updateOrderItem(data)
+      }
+        
+      )
+    )
+  }
+  
+    
+
+  totalOrder () {
+    // return this.cartItems.reduce((acc, curr) => acc + (curr.price ?? 0), 0)
+
+
+
+    // let count = 0;
+    // this.cartItems.map(item => {
+    //   count = ( item.price ?? 0 ) + 0
+    // })
+    // return count;
   }
 
 
