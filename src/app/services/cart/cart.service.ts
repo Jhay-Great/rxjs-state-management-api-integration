@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import { OrderItem, Product } from '../../interfaces/shop-data.interface';
 import { ShopDataService } from '../shop-data/shop-data.service';
-import { BehaviorSubject, Observable, Subject, filter, from, map, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, filter, from, map, of, takeUntil, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,13 @@ export class CartService {
 
    addToCart (name:string) {
     this.createOrder(name).pipe(
+      takeUntil(this.destroy$),
+      catchError(error => {
+        console.log(error);
+        return of(null);
+      }),
       tap(data => {
+        if (data === null) return; // return if there's an error, find a way to display the error
         this.cartItems = [...this.cartItems, data];
         console.log(this.cartItems);
         this.cartSubject$.next(this.cartItems);
@@ -42,6 +48,7 @@ export class CartService {
   //  considering changing function name to createOrderItem or createOrderObject or createOrder
    private createOrder (name:string) {
     return this.itemStore.findItem(name).pipe(
+      takeUntil(this.destroy$),
       map(item => {
         const quantityCount = 1
         const order = {

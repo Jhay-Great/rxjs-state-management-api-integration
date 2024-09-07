@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { filter, map, mergeMap, Observable, of, switchMap, take, tap } from 'rxjs';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 
@@ -15,7 +15,7 @@ import { CartService } from '../../services/cart/cart.service';
   templateUrl: './shopping-card.component.html',
   styleUrl: './shopping-card.component.css'
 })
-export class ShoppingCardComponent implements OnInit {
+export class ShoppingCardComponent implements OnInit, OnDestroy {
 
   @Input () product!: Product;
 
@@ -33,6 +33,10 @@ export class ShoppingCardComponent implements OnInit {
     // this.orderData.subscribe(val =>
     //   console.log('in component: ', val),
     // ) // for dev purposes strictly
+  }
+
+  ngOnDestroy(): void {
+    this.cartService.cleanup();
   }
 
   onAddToCart (id:string) { 
