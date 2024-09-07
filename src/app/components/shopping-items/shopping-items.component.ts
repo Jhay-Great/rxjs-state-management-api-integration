@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 
 // local module imports
@@ -17,17 +17,21 @@ import { CartComponent } from '../cart/cart.component';
   templateUrl: './shopping-items.component.html',
   styleUrl: './shopping-items.component.css'
 })
-export class ShoppingItemsComponent {
+export class ShoppingItemsComponent implements OnInit {
 
   productList$!: Observable<ProductList>;
+  loading$!:Observable<boolean>;
+  error$!:Observable<string | null>;
   data!:ProductList;
 
   constructor (
     private shoppingMartData: ShopDataService,
-  ) {
-
+  ) {  }
+  
+  ngOnInit(): void {
     this.productList$ = this.shoppingMartData.getData();
-
+    this.loading$ = this.shoppingMartData.loading$;
+    this.error$ = this.shoppingMartData.error$;
     
   }
 }

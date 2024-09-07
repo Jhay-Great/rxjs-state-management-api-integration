@@ -2,6 +2,17 @@
     Dessert
 </h1>
 
+@if (loading$ | async) {
+    <div class="loader"></div>
+
+}
+
+@if (error$ | async) {
+    <p>
+        {{ error$ | async }}
+    </p>
+}
+
 <!-- product card item -->
 <section class="product-card-container">
     
