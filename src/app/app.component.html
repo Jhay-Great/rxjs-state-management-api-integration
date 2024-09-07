@@ -1,4 +1,6 @@
-<app-shopping-items />
+<!-- <app-shopping-items /> -->
+
+<router-outlet />
 
 <app-cart 
  />
@@ -6,5 +8,3 @@
 @if (confirm | async) {
     <app-confirm-order-modal />
 }
-
-<router-outlet />
