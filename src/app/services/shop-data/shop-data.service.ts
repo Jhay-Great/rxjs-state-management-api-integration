@@ -24,7 +24,14 @@ export class ShopDataService {
    
 
   getData () :Observable<ProductList> {
-    this.fetchProductData()
+    this.fetchProductData();
+    // this.data$.pipe(
+    //   map(data => {
+    //     data.map(dessert => 
+    //       ({...dessert, addedToCart: false})
+    //     );
+    //   })
+    // )
     return this.data$
   }
 

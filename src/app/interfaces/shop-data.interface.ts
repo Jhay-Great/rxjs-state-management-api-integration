@@ -12,6 +12,7 @@ export interface imageData {
     category: string;
     price: number;
     id: string;
+    addedToCart?: boolean;
   }
   export type ProductList = Product[];
   export interface Dessert {

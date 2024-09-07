@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid';
 
 import { OrderItem, Product } from '../../interfaces/shop-data.interface';
 import { ShopDataService } from '../shop-data/shop-data.service';
-import { BehaviorSubject, Observable, filter, from, map, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, filter, from, map, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,9 @@ export class CartService {
   // total price
   private totalPriceSubject$ = new BehaviorSubject<number>(0);
   totalPrice = this.totalPriceSubject$;
+
+  // for clean up
+  destroy$ = new Subject<void>();
   
   constructor(
     private itemStore:ShopDataService,
@@ -114,7 +117,7 @@ export class CartService {
         tap(data => {
 
           // if quantity count is 0 then remove item from the cart
-          // abstract removing order from cart call from component
+          // TODO: abstract removing order from cart call from component here
           
           const productIndex = this.cartItems.findIndex(product => product.name === data[0].name);
 
@@ -232,6 +235,12 @@ export class CartService {
     .subscribe();
     return data;
     
+  }
+
+  // for completing and cleaning up subscription
+  cleanup () {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }
