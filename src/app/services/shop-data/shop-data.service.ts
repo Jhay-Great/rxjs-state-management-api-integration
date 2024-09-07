@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 // import module import
 import { ProductList, OrderData, OrderItem, Product } from '../../interfaces/shop-data.interface';
-import { Observable, BehaviorSubject, map } from 'rxjs';
+import { Observable, BehaviorSubject, map, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,18 +25,23 @@ export class ShopDataService {
 
   getData () :Observable<ProductList> {
     this.fetchProductData();
-    // this.data$.pipe(
-    //   map(data => {
-    //     data.map(dessert => 
-    //       ({...dessert, addedToCart: false})
-    //     );
-    //   })
-    // )
-    return this.data$
+    return this.data$.pipe(
+      // transforming the observable data to add a cart boolean
+      map(data => {
+        return data.map(dessert => 
+          ({...dessert, addedToCart: false})
+        );
+      }),
+      // tap(data => {
+      //   console.log(data);
+      // })
+    )
+    // return this.data$ // returns initial observable data without transformation
   }
 
   findItem (name:string) {
-    return this.data$.pipe(
+    // return this.data$.pipe(
+    return this.getData().pipe(
       map(data => data.find(data => data.name === name)),
     )
   }

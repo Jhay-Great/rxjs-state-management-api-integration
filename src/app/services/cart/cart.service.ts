@@ -34,7 +34,7 @@ export class CartService {
       tap(data => {
         if (data === null) return; // return if there's an error, find a way to display the error
         this.cartItems = [...this.cartItems, data];
-        console.log(this.cartItems);
+        // console.log(this.cartItems);
         this.cartSubject$.next(this.cartItems);
 
         // calculating the current total order
@@ -48,6 +48,15 @@ export class CartService {
   //  considering changing function name to createOrderItem or createOrderObject or createOrder
    private createOrder (name:string) {
     return this.itemStore.findItem(name).pipe(
+      tap(data => {
+        console.log(data)
+        const updated = {
+          ...data,
+          addToCart: true,
+        }
+        console.log(updated);
+        // console.log('data before transformation: ', data);
+      }),
       takeUntil(this.destroy$),
       map(item => {
         const quantityCount = 1
@@ -63,7 +72,7 @@ export class CartService {
         return order
       }),
       // tap(data => {
-      //   // console.log(data);
+      //   console.log('calling data after map transformation: ', data);
       // })
     )
    }
@@ -199,7 +208,23 @@ export class CartService {
   removeOrderFromCart (id:string) {
     const updatedCart = this.cartItems.filter(item => item.name !== id);
     this.cartItems = updatedCart;
-    this.cartSubject$.next(this.cartItems)
+    this.cartSubject$.next(this.cartItems);
+
+    // get the product from the productList data and set it to false;
+    this.itemStore.findItem(id).pipe(
+      tap(data => {
+        console.log('initial data be transformation: ', data)
+      }),
+      map(data => ({...data, addedToCart: false})),
+      tap(data => {
+        console.log(data);
+      })
+    )
+    .subscribe();
+
+    // console.log('function is done executing')
+    
+    
   }
 
   calculateQuantityTotal (id:string) {
@@ -246,6 +271,7 @@ export class CartService {
 
   // for completing and cleaning up subscription
   cleanup () {
+    console.log('calling the cleanup function')
     this.destroy$.next();
     this.destroy$.complete();
   }

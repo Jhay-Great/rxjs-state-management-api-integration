@@ -6,7 +6,8 @@
       alt="image of {{ product.name }}"
     />
     <div class="add-to-cart-container">
-        @if (!addToCartIsClicked) {
+        <!-- @if (!addToCartIsClicked) { -->
+        @if (!product.addedToCart) {
         <!-- @if (addProductToCart(product.id)) { -->
         <!-- @if (!isProductSelected(product.id)) { -->
         <!-- @if (!cartState.get(product.id)) { -->

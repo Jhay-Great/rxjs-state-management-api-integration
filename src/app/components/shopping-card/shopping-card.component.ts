@@ -36,12 +36,14 @@ export class ShoppingCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    console.log('component is destroyed and i\'m about to clean up')
     this.cartService.cleanup();
   }
 
   onAddToCart (id:string) { 
     this.productName = id;
-    this.addToCartIsClicked = true;
+    // this.addToCartIsClicked = true;
+    this.product.addedToCart = true; // sets addToCart to true to toggle add to cart and quantity increase in the template
     this.cartService.addToCart(id);
   }
 
@@ -51,8 +53,9 @@ export class ShoppingCardComponent implements OnInit, OnDestroy {
       quantity => {
         if (quantity > 0) return;
         this.cartService.removeOrderFromCart(id);
-        this.addToCartIsClicked = false; // use this to display addToCart btn
-        
+        // this.addToCartIsClicked = false; // use this to display addToCart btn
+        this.product.addedToCart = false; // sets addToCart to true to toggle add to cart and quantity increase in the template
+
       }
     );
     
