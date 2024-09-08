@@ -31,16 +31,11 @@ export class ShopDataService {
 
   //  fetchProductData (): void {
    fetchProductData ():Observable<ProductList> {
-    console.log('fetched product data fn here')
-     // this.data$ = this.http.get<ProductList>(`${this.jsonDataUrl}`)
      return this.http.get<ProductList>(`${this.jsonDataUrl}`).pipe(
-    //  this.data$ = this.http.get<ProductList>(`${this.jsonDataUrl}`).pipe(
       // this.mockApiRequest() // creating custom observable
 
        tap(() => {
-        console.log('loading spinner in fetch fn')
         this.loadingSubject.next(true);
-
       }),
       throttleTime(1000),
       delay(2000),
