@@ -16,14 +16,13 @@ export class ShopDataService {
   private loadingSubject = new BehaviorSubject<boolean>(false);
   private errorSubject = new BehaviorSubject<string | null>(null);
   private dataSubject = new BehaviorSubject<ProductList | null>(null)
+  private data$ = this.dataSubject.asObservable();
   
   successRate:number = 0.6;
   
   // subjects
   loading$ = this.loadingSubject.asObservable();
   error$ = this.errorSubject.asObservable();
-  // private data$!: Observable<ProductList>
-  private data$ = this.dataSubject.asObservable();
 
 
   constructor(
@@ -89,8 +88,6 @@ export class ShopDataService {
    
 
   getData () :Observable<ProductList> {
-    console.log('called...')
-
     if (!this.dataSubject.value) {
       this.fetchProductData().subscribe(
         data => this.dataSubject.next(data)
@@ -98,9 +95,7 @@ export class ShopDataService {
     }
     
     
-    // this.fetchProductData();
     return this.data$.pipe(
-    // return this.data$.pipe(
       map(data => {
         if (!data) return []; // returning an empty array if no data is available
 
@@ -108,22 +103,13 @@ export class ShopDataService {
           ({...dessert, addedToCart: false})
         );
       })
-    )
-    // return this.data$
+    );
   }
 
   findItem (name:string) {
     return this.data$.pipe(
-      // tap(data => { // for debugging and dev mode
-      //   console.log(data);
-      // }),
       map(data => data ? data.find(data => data.name === name) : null),
     )
   }
-  // findItem (id:string) {
-  //   return this.data$.pipe(
-  //     map(data => data.find(data => data.id === id)),
-  //   )
-  // }
   
 }
