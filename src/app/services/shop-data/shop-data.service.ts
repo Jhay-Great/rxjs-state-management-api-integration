@@ -84,7 +84,11 @@ export class ShopDataService {
 
   getData () :Observable<ProductList> {
     if (!this.dataSubject.value) {
-      this.fetchProductData().subscribe(
+      this.fetchProductData().pipe(
+        map(data => {
+          return data.map(dessert => ({...dessert, addedToCart: false}));
+        }),
+      ).subscribe(
         data => this.dataSubject.next(data)
       )
     }
@@ -94,15 +98,19 @@ export class ShopDataService {
       map(data => {
         if (!data) return []; // returning an empty array if no data is available
 
-        return data.map(dessert => 
-          ({...dessert, addedToCart: false})
-        );
+        return data;
+        // return data.map(dessert => 
+        //   ({...dessert, addedToCart: false})
+        // );
       })
     );
   }
 
   findItem (name:string) {
     return this.data$.pipe(
+      tap(data => {
+        console.log('logging data being fetch: ', data);
+      }),
       map(data => data ? data.find(data => data.name === name) : null),
     )
   }

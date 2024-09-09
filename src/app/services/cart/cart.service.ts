@@ -205,7 +205,7 @@ export class CartService {
     )
   }
 
-  removeOrderFromCart (id:string) {
+  removeOrderFromCart (id:string, product?:Product) {
     const updatedCart = this.cartItems.filter(item => item.name !== id);
     this.cartItems = updatedCart;
     this.cartSubject$.next(this.cartItems);
@@ -213,11 +213,12 @@ export class CartService {
     // get the product from the productList data and set it to false;
     this.itemStore.findItem(id).pipe(
       tap(data => {
-        console.log('initial data be transformation: ', data)
+        console.log('initial data be transformation: ', data);
+        // console.log('product:', product);
       }),
       map(data => ({...data, addedToCart: false})),
       tap(data => {
-        console.log(data);
+        // console.log(data);
       })
     )
     .subscribe();

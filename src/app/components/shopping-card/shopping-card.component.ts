@@ -52,7 +52,7 @@ export class ShoppingCardComponent implements OnInit, OnDestroy {
     this.cartService.getQuantityCount(id).subscribe(
       quantity => {
         if (quantity > 0) return;
-        this.cartService.removeOrderFromCart(id);
+        this.cartService.removeOrderFromCart(id, this.product);
         // this.addToCartIsClicked = false; // use this to display addToCart btn
         this.product.addedToCart = false; // sets addToCart to true to toggle add to cart and quantity increase in the template
 
